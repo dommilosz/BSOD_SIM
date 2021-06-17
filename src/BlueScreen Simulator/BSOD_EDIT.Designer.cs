@@ -29,224 +29,300 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BSOD_EDIT));
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.fILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sAVEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lOADToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dEMOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.win10ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.win7ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cHANGEBACKCOLORToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cHANGEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rESETToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.aDDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lABELToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iMAGEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sETTINGSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lABELToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.rEMOVEToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cHANGEFONTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cHANGECOLORToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iMAGEToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.rEMOVEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cHANGEToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.dEFAULTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Perc_Timer = new System.Windows.Forms.Timer(this.components);
+            this.btn_start = new System.Windows.Forms.Button();
+            this.BSOD_Timer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.txt_password = new System.Windows.Forms.TextBox();
+            this.lbl_password = new System.Windows.Forms.Label();
             this.password_in = new System.Windows.Forms.TextBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.timer3 = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.btn_preview = new System.Windows.Forms.Button();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.iTEMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mOVETOFRONTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mOVETOBACKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rEMOVEToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.rESETToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.rELOADToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // contextMenuStrip1
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox1.Location = new System.Drawing.Point(124, 250);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1000, 31);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "Your PC ran into a problem and needs to restart. We\'re";
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fILEToolStripMenuItem,
+            this.cHANGEBACKCOLORToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.aDDToolStripMenuItem,
+            this.sETTINGSToolStripMenuItem,
+            this.lABELToolStripMenuItem1,
+            this.iMAGEToolStripMenuItem1,
+            this.iTEMToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 202);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.contextMenuStrip1.Opened += new System.EventHandler(this.contextMenuStrip1_Opened);
             // 
-            // textBox2
+            // fILEToolStripMenuItem
             // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 19F);
-            this.textBox2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox2.Location = new System.Drawing.Point(177, 379);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(441, 33);
-            this.textBox2.TabIndex = 2;
-            this.textBox2.Text = "complete";
+            this.fILEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sAVEToolStripMenuItem,
+            this.lOADToolStripMenuItem,
+            this.templatesToolStripMenuItem,
+            this.rESETToolStripMenuItem1,
+            this.rELOADToolStripMenuItem});
+            this.fILEToolStripMenuItem.Name = "fILEToolStripMenuItem";
+            this.fILEToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fILEToolStripMenuItem.Text = "FILE";
             // 
-            // textBox3
+            // sAVEToolStripMenuItem
             // 
-            this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox3.Location = new System.Drawing.Point(201, 436);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(1000, 16);
-            this.textBox3.TabIndex = 3;
-            this.textBox3.Text = "For more information about this issue and possible fixes, visit https://windows.c" +
-    "om/stopcode";
+            this.sAVEToolStripMenuItem.Name = "sAVEToolStripMenuItem";
+            this.sAVEToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.sAVEToolStripMenuItem.Text = "SAVE";
+            this.sAVEToolStripMenuItem.Click += new System.EventHandler(this.sAVEToolStripMenuItem_Click);
             // 
-            // textBox4
+            // lOADToolStripMenuItem
             // 
-            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox4.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox4.Location = new System.Drawing.Point(201, 475);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(1000, 16);
-            this.textBox4.TabIndex = 4;
-            this.textBox4.Text = "If you call a support person, give them this info:";
+            this.lOADToolStripMenuItem.Name = "lOADToolStripMenuItem";
+            this.lOADToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.lOADToolStripMenuItem.Text = "LOAD";
+            this.lOADToolStripMenuItem.Click += new System.EventHandler(this.lOADToolStripMenuItem_Click);
             // 
-            // textBox5
+            // templatesToolStripMenuItem
             // 
-            this.textBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox5.Location = new System.Drawing.Point(201, 497);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(1000, 16);
-            this.textBox5.TabIndex = 5;
-            this.textBox5.Text = "Stop code: CRITICAL PROCESS DIED";
+            this.templatesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dEMOToolStripMenuItem,
+            this.win10ToolStripMenuItem,
+            this.win7ToolStripMenuItem});
+            this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
+            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.templatesToolStripMenuItem.Text = "TEMPLATES";
             // 
-            // textBox6
+            // dEMOToolStripMenuItem
             // 
-            this.textBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox6.Font = new System.Drawing.Font("Microsoft YaHei UI", 100F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox6.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox6.Location = new System.Drawing.Point(124, 69);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(1000, 170);
-            this.textBox6.TabIndex = 7;
-            this.textBox6.Text = ":(";
+            this.dEMOToolStripMenuItem.Name = "dEMOToolStripMenuItem";
+            this.dEMOToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.dEMOToolStripMenuItem.Text = "DEMO";
+            this.dEMOToolStripMenuItem.Click += new System.EventHandler(this.lOADDEMOToolStripMenuItem_Click);
             // 
-            // timer1
+            // win10ToolStripMenuItem
             // 
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            this.win10ToolStripMenuItem.Name = "win10ToolStripMenuItem";
+            this.win10ToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.win10ToolStripMenuItem.Text = "Win10";
+            this.win10ToolStripMenuItem.Click += new System.EventHandler(this.rESETToolStripMenuItem2_Click_1);
             // 
-            // button1
+            // win7ToolStripMenuItem
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(1113, 640);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "START";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.BSOD_Start);
+            this.win7ToolStripMenuItem.Name = "win7ToolStripMenuItem";
+            this.win7ToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.win7ToolStripMenuItem.Text = "Win7";
+            this.win7ToolStripMenuItem.Click += new System.EventHandler(this.win7ToolStripMenuItem_Click);
             // 
-            // timer2
+            // cHANGEBACKCOLORToolStripMenuItem
             // 
-            this.timer2.Interval = 10;
-            this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
+            this.cHANGEBACKCOLORToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cHANGEToolStripMenuItem,
+            this.rESETToolStripMenuItem});
+            this.cHANGEBACKCOLORToolStripMenuItem.Name = "cHANGEBACKCOLORToolStripMenuItem";
+            this.cHANGEBACKCOLORToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.cHANGEBACKCOLORToolStripMenuItem.Text = "COLOR (BACK)";
             // 
-            // label1
+            // cHANGEToolStripMenuItem
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 19F);
-            this.label1.Location = new System.Drawing.Point(119, 380);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 33);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "0%";
+            this.cHANGEToolStripMenuItem.Name = "cHANGEToolStripMenuItem";
+            this.cHANGEToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.cHANGEToolStripMenuItem.Text = "CHANGE";
+            this.cHANGEToolStripMenuItem.Click += new System.EventHandler(this.cHANGEToolStripMenuItem_Click);
             // 
-            // button2
+            // rESETToolStripMenuItem
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(617, 640);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "LOAD";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            this.rESETToolStripMenuItem.Name = "rESETToolStripMenuItem";
+            this.rESETToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.rESETToolStripMenuItem.Text = "RESET";
+            this.rESETToolStripMenuItem.Click += new System.EventHandler(this.rESETToolStripMenuItem_Click);
             // 
-            // button3
+            // toolStripMenuItem1
             // 
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(536, 640);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "SAVE";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            this.toolStripMenuItem1.CheckOnClick = true;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(154, 22);
+            this.toolStripMenuItem1.Text = "DESIGN MODE";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // aDDToolStripMenuItem
+            // 
+            this.aDDToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lABELToolStripMenuItem,
+            this.iMAGEToolStripMenuItem});
+            this.aDDToolStripMenuItem.Name = "aDDToolStripMenuItem";
+            this.aDDToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.aDDToolStripMenuItem.Text = "ADD";
+            // 
+            // lABELToolStripMenuItem
+            // 
+            this.lABELToolStripMenuItem.Name = "lABELToolStripMenuItem";
+            this.lABELToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.lABELToolStripMenuItem.Text = "LABEL";
+            this.lABELToolStripMenuItem.Click += new System.EventHandler(this.lABELToolStripMenuItem_Click);
+            // 
+            // iMAGEToolStripMenuItem
+            // 
+            this.iMAGEToolStripMenuItem.Name = "iMAGEToolStripMenuItem";
+            this.iMAGEToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.iMAGEToolStripMenuItem.Text = "IMAGE";
+            this.iMAGEToolStripMenuItem.Click += new System.EventHandler(this.iMAGEToolStripMenuItem_Click);
+            // 
+            // sETTINGSToolStripMenuItem
+            // 
+            this.sETTINGSToolStripMenuItem.Name = "sETTINGSToolStripMenuItem";
+            this.sETTINGSToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.sETTINGSToolStripMenuItem.Text = "SETTINGS";
+            this.sETTINGSToolStripMenuItem.Click += new System.EventHandler(this.sETTINGSToolStripMenuItem_Click);
+            // 
+            // lABELToolStripMenuItem1
+            // 
+            this.lABELToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rEMOVEToolStripMenuItem1,
+            this.cHANGEFONTToolStripMenuItem,
+            this.cHANGECOLORToolStripMenuItem});
+            this.lABELToolStripMenuItem1.Name = "lABELToolStripMenuItem1";
+            this.lABELToolStripMenuItem1.Size = new System.Drawing.Size(154, 22);
+            this.lABELToolStripMenuItem1.Text = "LABEL";
+            this.lABELToolStripMenuItem1.Visible = false;
+            // 
+            // rEMOVEToolStripMenuItem1
+            // 
+            this.rEMOVEToolStripMenuItem1.Name = "rEMOVEToolStripMenuItem1";
+            this.rEMOVEToolStripMenuItem1.Size = new System.Drawing.Size(164, 22);
+            this.rEMOVEToolStripMenuItem1.Text = "REMOVE";
+            this.rEMOVEToolStripMenuItem1.Click += new System.EventHandler(this.rEMOVEToolStripMenuItem1_Click);
+            // 
+            // cHANGEFONTToolStripMenuItem
+            // 
+            this.cHANGEFONTToolStripMenuItem.Name = "cHANGEFONTToolStripMenuItem";
+            this.cHANGEFONTToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.cHANGEFONTToolStripMenuItem.Text = "CHANGE FONT";
+            this.cHANGEFONTToolStripMenuItem.Click += new System.EventHandler(this.cHANGEFONTToolStripMenuItem_Click);
+            // 
+            // cHANGECOLORToolStripMenuItem
+            // 
+            this.cHANGECOLORToolStripMenuItem.Name = "cHANGECOLORToolStripMenuItem";
+            this.cHANGECOLORToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.cHANGECOLORToolStripMenuItem.Text = "CHANGE COLOR";
+            this.cHANGECOLORToolStripMenuItem.Click += new System.EventHandler(this.cHANGECOLORToolStripMenuItem_Click);
+            // 
+            // iMAGEToolStripMenuItem1
+            // 
+            this.iMAGEToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rEMOVEToolStripMenuItem,
+            this.cHANGEToolStripMenuItem2,
+            this.dEFAULTToolStripMenuItem});
+            this.iMAGEToolStripMenuItem1.Name = "iMAGEToolStripMenuItem1";
+            this.iMAGEToolStripMenuItem1.Size = new System.Drawing.Size(154, 22);
+            this.iMAGEToolStripMenuItem1.Text = "IMAGE";
+            this.iMAGEToolStripMenuItem1.Visible = false;
+            // 
+            // rEMOVEToolStripMenuItem
+            // 
+            this.rEMOVEToolStripMenuItem.Name = "rEMOVEToolStripMenuItem";
+            this.rEMOVEToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.rEMOVEToolStripMenuItem.Text = "REMOVE";
+            this.rEMOVEToolStripMenuItem.Click += new System.EventHandler(this.rEMOVEToolStripMenuItem1_Click);
+            // 
+            // cHANGEToolStripMenuItem2
+            // 
+            this.cHANGEToolStripMenuItem2.Name = "cHANGEToolStripMenuItem2";
+            this.cHANGEToolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
+            this.cHANGEToolStripMenuItem2.Text = "CHANGE";
+            this.cHANGEToolStripMenuItem2.Click += new System.EventHandler(this.cHANGEToolStripMenuItem2_Click_1);
+            // 
+            // dEFAULTToolStripMenuItem
+            // 
+            this.dEFAULTToolStripMenuItem.Name = "dEFAULTToolStripMenuItem";
+            this.dEFAULTToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.dEFAULTToolStripMenuItem.Text = "DEFAULT";
+            this.dEFAULTToolStripMenuItem.Click += new System.EventHandler(this.dEFAULTToolStripMenuItem_Click);
+            // 
+            // Perc_Timer
+            // 
+            this.Perc_Timer.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
+            // btn_start
+            // 
+            this.btn_start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_start.Location = new System.Drawing.Point(1113, 640);
+            this.btn_start.Name = "btn_start";
+            this.btn_start.Size = new System.Drawing.Size(75, 23);
+            this.btn_start.TabIndex = 8;
+            this.btn_start.Text = "START";
+            this.btn_start.UseVisualStyleBackColor = true;
+            this.btn_start.Click += new System.EventHandler(this.BSOD_Start);
+            // 
+            // BSOD_Timer
+            // 
+            this.BSOD_Timer.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "txt";
-            this.openFileDialog1.Filter = "Save Files (.txt)|*.txt";
+            this.openFileDialog1.Filter = "Binary (.exe)|*.exe|BSOD save file|*.bsod";
             // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.DefaultExt = "txt";
-            this.saveFileDialog1.Filter = "Save Files (.txt)|*.txt";
+            this.saveFileDialog1.Filter = "Binary (.exe)|*.exe|BSOD save file|*.bsod";
             // 
             // colorDialog1
             // 
             this.colorDialog1.AnyColor = true;
             this.colorDialog1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
             // 
-            // button5
+            // txt_password
             // 
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(1006, 611);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "Color";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.Button5_Click);
+            this.txt_password.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_password.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_password.Location = new System.Drawing.Point(1102, 574);
+            this.txt_password.Name = "txt_password";
+            this.txt_password.Size = new System.Drawing.Size(86, 23);
+            this.txt_password.TabIndex = 17;
+            this.txt_password.Text = "33215";
             // 
-            // button6
+            // lbl_password
             // 
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(1006, 640);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 15;
-            this.button6.Text = "R Color";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.Button6_Click);
-            // 
-            // textBox7
-            // 
-            this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox7.Location = new System.Drawing.Point(1102, 574);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(86, 23);
-            this.textBox7.TabIndex = 17;
-            this.textBox7.Text = "33215";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1041, 578);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "password:";
+            this.lbl_password.AutoSize = true;
+            this.lbl_password.Location = new System.Drawing.Point(1041, 578);
+            this.lbl_password.Name = "lbl_password";
+            this.lbl_password.Size = new System.Drawing.Size(55, 13);
+            this.lbl_password.TabIndex = 18;
+            this.lbl_password.Text = "password:";
             // 
             // password_in
             // 
@@ -255,128 +331,62 @@
             this.password_in.Size = new System.Drawing.Size(100, 20);
             this.password_in.TabIndex = 19;
             // 
-            // button7
+            // btn_preview
             // 
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Location = new System.Drawing.Point(925, 611);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 20;
-            this.button7.Text = "QR IMG";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.Button7_Click);
+            this.btn_preview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_preview.Location = new System.Drawing.Point(1032, 640);
+            this.btn_preview.Name = "btn_preview";
+            this.btn_preview.Size = new System.Drawing.Size(75, 23);
+            this.btn_preview.TabIndex = 23;
+            this.btn_preview.Text = "PREVIEW";
+            this.btn_preview.UseVisualStyleBackColor = true;
+            this.btn_preview.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button8
+            // iTEMToolStripMenuItem
             // 
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Location = new System.Drawing.Point(844, 611);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 23);
-            this.button8.TabIndex = 21;
-            this.button8.Text = "TXT Color";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.Button8_Click);
+            this.iTEMToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mOVETOFRONTToolStripMenuItem,
+            this.mOVETOBACKToolStripMenuItem,
+            this.rEMOVEToolStripMenuItem2});
+            this.iTEMToolStripMenuItem.Name = "iTEMToolStripMenuItem";
+            this.iTEMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.iTEMToolStripMenuItem.Text = "ITEM";
+            this.iTEMToolStripMenuItem.Visible = false;
             // 
-            // button9
+            // mOVETOFRONTToolStripMenuItem
             // 
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Location = new System.Drawing.Point(925, 640);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
-            this.button9.TabIndex = 23;
-            this.button9.Text = "R QR";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.Button9_Click);
+            this.mOVETOFRONTToolStripMenuItem.Name = "mOVETOFRONTToolStripMenuItem";
+            this.mOVETOFRONTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mOVETOFRONTToolStripMenuItem.Text = "MOVE TO FRONT";
+            this.mOVETOFRONTToolStripMenuItem.Click += new System.EventHandler(this.mOVETOFRONTToolStripMenuItem_Click);
             // 
-            // button10
+            // mOVETOBACKToolStripMenuItem
             // 
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Location = new System.Drawing.Point(844, 640);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 24;
-            this.button10.Text = "R TXT";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.Button10_Click);
+            this.mOVETOBACKToolStripMenuItem.Name = "mOVETOBACKToolStripMenuItem";
+            this.mOVETOBACKToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mOVETOBACKToolStripMenuItem.Text = "MOVE TO BACK";
+            this.mOVETOBACKToolStripMenuItem.Click += new System.EventHandler(this.mOVETOBACKToolStripMenuItem_Click);
             // 
-            // button11
+            // rEMOVEToolStripMenuItem2
             // 
-            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button11.Location = new System.Drawing.Point(763, 611);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(75, 23);
-            this.button11.TabIndex = 25;
-            this.button11.Text = "Percent";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.Button11_Click);
+            this.rEMOVEToolStripMenuItem2.Name = "rEMOVEToolStripMenuItem2";
+            this.rEMOVEToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.rEMOVEToolStripMenuItem2.Text = "REMOVE";
+            this.rEMOVEToolStripMenuItem2.Click += new System.EventHandler(this.rEMOVEToolStripMenuItem1_Click);
             // 
-            // button12
+            // rESETToolStripMenuItem1
             // 
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(763, 640);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(75, 23);
-            this.button12.TabIndex = 26;
-            this.button12.Text = "Other settings";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.Button12_Click);
+            this.rESETToolStripMenuItem1.Name = "rESETToolStripMenuItem1";
+            this.rESETToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.rESETToolStripMenuItem1.Text = "RESET";
+            this.rESETToolStripMenuItem1.Click += new System.EventHandler(this.rESETToolStripMenuItem2_Click_1);
             // 
-            // pictureBox2
+            // rELOADToolStripMenuItem
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(-200, 588);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(88, 75);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 22;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(117, 436);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(88, 75);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 16;
-            this.pictureBox1.TabStop = false;
-            // 
-            // textBox8
-            // 
-            this.textBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.textBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox8.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox8.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox8.Location = new System.Drawing.Point(124, 280);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(1000, 31);
-            this.textBox8.TabIndex = 27;
-            this.textBox8.Text = "just collecting some error info, and then we\'ll restart for";
-            // 
-            // textBox9
-            // 
-            this.textBox9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.textBox9.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox9.Font = new System.Drawing.Font("Microsoft JhengHei UI Light", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox9.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox9.Location = new System.Drawing.Point(124, 310);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(1000, 31);
-            this.textBox9.TabIndex = 28;
-            this.textBox9.Text = "you";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.pictureBox3.Location = new System.Drawing.Point(-14, -54);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox3.TabIndex = 29;
-            this.pictureBox3.TabStop = false;
-            // 
-            // timer3
-            // 
-            this.timer3.Tick += new System.EventHandler(this.Timer3_Tick);
+            this.rELOADToolStripMenuItem.Name = "rELOADToolStripMenuItem";
+            this.rELOADToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rELOADToolStripMenuItem.Text = "RELOAD";
+            this.rELOADToolStripMenuItem.Click += new System.EventHandler(this.rELOADToolStripMenuItem_Click);
             // 
             // BSOD_EDIT
             // 
@@ -385,32 +395,12 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
             this.ClientSize = new System.Drawing.Size(1200, 675);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.textBox9);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.button12);
-            this.Controls.Add(this.button11);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
+            this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.btn_preview);
             this.Controls.Add(this.password_in);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.lbl_password);
+            this.Controls.Add(this.txt_password);
+            this.Controls.Add(this.btn_start);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "BSOD_EDIT";
@@ -419,47 +409,54 @@
             this.Text = "BSOD_EDIT";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BSOD_EDIT_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Timer Perc_Timer;
+        private System.Windows.Forms.Button btn_start;
+        private System.Windows.Forms.Timer BSOD_Timer;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbl_password;
         private System.Windows.Forms.TextBox password_in;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Timer timer3;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fILEToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sAVEToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lOADToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cHANGEBACKCOLORToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cHANGEToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rESETToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sETTINGSToolStripMenuItem;
+        private System.Windows.Forms.Button btn_preview;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem templatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dEMOToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem win10ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem win7ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aDDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lABELToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iMAGEToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lABELToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem rEMOVEToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem cHANGEFONTToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cHANGECOLORToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iMAGEToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem rEMOVEToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cHANGEToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem dEFAULTToolStripMenuItem;
+        private System.Windows.Forms.FontDialog fontDialog1;
+        public System.Windows.Forms.TextBox txt_password;
+        private System.Windows.Forms.ToolStripMenuItem iTEMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mOVETOFRONTToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mOVETOBACKToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rEMOVEToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem rESETToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem rELOADToolStripMenuItem;
     }
 }
 

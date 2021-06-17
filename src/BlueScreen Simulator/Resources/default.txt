@@ -1,0 +1,100 @@
+:(
+Your PC ran into a problem and needs to restart. We're{endl}just collecting some error info, and then we'll restart for{endl}you
+{p}% complete
+For more information about this issue and possible fixes, visit https://windows.com/stopcode
+If you call a support person, give them this info:
+Stop code: CRITICAL PROCESS DIED
+//timer settings
+1
+8
+1000
+3500
+//color settings
+0
+120
+215
+|141*79#1138*193||141*284#1138*141||141*432#502*38||229*496#1138*38||229*540#1138*18||229*565#1138*156|
+
+
+//password settings
+33215
+//image settings
+default
+True
+Microsoft JhengHei UI; 18pt
+Microsoft JhengHei UI; 9,25pt
+Microsoft YaHei UI; 100pt
+
+
+
+False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,2 +1,2 @@
 # FTP-SCREEN-SHOT-CONSOLE
-DOWNLOAD : https://github.com/dommilosz/FTP-SCREEN-SHOT-CONSOLE/releases/latest/download/FTP-CONSOLE.exe
+DOWNLOAD : https://github.com/dommilosz/BSOD_SIM/releases/latest/download/Bluescreen.Simulator.exe

@@ -36,6 +36,8 @@ namespace BlueScreen_Simulator
             tmin.Value = data.tmin;
             cmax.Value = data.cmax;
             tmax.Value = data.tmax;
+            chk_hide_cursor.Checked = data.hideCursor;
+            txt_password.Text = data.password;
         }
 
         private void Button6_Click(object sender, EventArgs e)
@@ -56,6 +58,9 @@ namespace BlueScreen_Simulator
             data.tmin = (int)tmin.Value;
             data.cmax = (int)cmax.Value;
             data.tmax = (int)tmax.Value;
+            data.hideCursor = chk_hide_cursor.Checked;
+            data.password = txt_password.Text;
+            BSODData.Apply();
         }
 
         private void button4_Click(object sender, EventArgs e)

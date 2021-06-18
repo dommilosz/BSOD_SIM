@@ -28,9 +28,9 @@ namespace BlueScreen_Simulator
             thissize = this.Size;
             ThisScale();
             InitDefault();
-            
+
             ToLog("----NEW-RUN----");
-            
+
             args = Environment.GetCommandLineArgs();
             ToLog(string.Join(" ", args));
             try
@@ -66,12 +66,12 @@ namespace BlueScreen_Simulator
         private void InitDefault()
         {
             BSODData.Clear();
-            addTextBox(new Point(124, 250), new Size(1000, 124), "Your PC ran into a problem and needs to restart.We\'re\njust collecting some error info, and then we\'ll restart for\nyou", this.contextMenuStrip1, new System.Drawing.Font("Microsoft JhengHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238))));
-            addTextBox(new Point(124, 69), new Size(1000, 170), ":(", this.contextMenuStrip1, new System.Drawing.Font("Microsoft YaHei UI", 100F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2))));
-            addTextBox(new Point(201, 475), new Size(1000, 16), "If you call a support person, give them this info:", this.contextMenuStrip1, new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            addTextBox(new Point(201, 436), new Size(1000, 33), "For more information about this issue and possible fixes, visit https://windows.com/stopcode", this.contextMenuStrip1, new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            addTextBox(new Point(124, 380), new Size(441, 33), "{p}% complete", this.contextMenuStrip1, new System.Drawing.Font("Microsoft JhengHei UI", 18F));
-            addTextBox(new Point(201, 497), new Size(1000, 137), "Stop code: CRITICAL PROCESS DIED", this.contextMenuStrip1, new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
+            addTextBox(new Point(124, 250), new Size(1000, 124), "Your PC ran into a problem and needs to restart.We\'re\njust collecting some error info, and then we\'ll restart for\nyou", new System.Drawing.Font("Microsoft JhengHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238))));
+            addTextBox(new Point(124, 69), new Size(1000, 170), ":(", new System.Drawing.Font("Microsoft YaHei UI", 100F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2))));
+            addTextBox(new Point(201, 475), new Size(1000, 16), "If you call a support person, give them this info:", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
+            addTextBox(new Point(201, 436), new Size(1000, 33), "For more information about this issue and possible fixes, visit https://windows.com/stopcode", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
+            addTextBox(new Point(124, 380), new Size(441, 33), "{p}% complete", new System.Drawing.Font("Microsoft JhengHei UI", 18F));
+            addTextBox(new Point(201, 497), new Size(1000, 137), "Stop code: CRITICAL PROCESS DIED", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             addImageBox(new Point(117, 436), new Size(88, 75));
             BSODData.Apply();
         }
@@ -79,23 +79,35 @@ namespace BlueScreen_Simulator
         private void InitDemo()
         {
             BSODData.Clear();
-            addTextBox(new Point(124, 200), new Size(1000, 154), "{p}         - %                                            {width}       - width of this screen\n{pass}    - password                                 {height}      - height of this screen\n{cmd}     - command to run 100%           {tmin} {tmax} {cmin} {cmax} - percent step time and count\n{scale-x} - scale width on this screen        {unsmode} - is unsafemode checked (settings)\n{scale-y} - scale height on this screen      {closecmd} - is close after execution checked (settings)", this.contextMenuStrip1, new System.Drawing.Font("Microsoft JhengHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238))));
-            addTextBox(new Point(124, 69), new Size(1000, 170), ":DEMO:", this.contextMenuStrip1, new System.Drawing.Font("Microsoft YaHei UI", 100F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2))));
-            addTextBox(new Point(201, 475), new Size(1000, 16), "If you call a support person, give them this info:", this.contextMenuStrip1, new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            addTextBox(new Point(201, 436), new Size(1000, 33), "&11 &22 &33 &44 &55 &66 &77 &88 &99 &00 &aa &bb &cc &dd &ee &ff", this.contextMenuStrip1, new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            addTextBox(new Point(124, 380), new Size(441, 33), "CLICK PREVIEW TO SEE", this.contextMenuStrip1, new System.Drawing.Font("Microsoft JhengHei UI", 18F));
-            addTextBox(new Point(201, 497), new Size(1000, 137), "Stop code: CRITICAL PROCESS DIED", this.contextMenuStrip1, new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
+            addTextBox(new Point(124, 200), new Size(1000, 154), "{p}         - %                                            {width}       - width of this screen\n{pass}    - password                                 {height}      - height of this screen\n{cmd}     - command to run 100%           {tmin} {tmax} {cmin} {cmax} - percent step time and count\n{scale-x} - scale width on this screen        {unsmode} - is unsafemode checked (settings)\n{scale-y} - scale height on this screen      {closecmd} - is close after execution checked (settings)", new System.Drawing.Font("Microsoft JhengHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238))));
+            addTextBox(new Point(124, 69), new Size(1000, 170), ":DEMO:", new System.Drawing.Font("Microsoft YaHei UI", 100F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2))));
+            addTextBox(new Point(201, 475), new Size(1000, 16), "If you call a support person, give them this info:", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
+            addTextBox(new Point(201, 436), new Size(1000, 33), "&11 &22 &33 &44 &55 &66 &77 &88 &99 &00 &aa &bb &cc &dd &ee &ff", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
+            addTextBox(new Point(124, 380), new Size(441, 33), "CLICK PREVIEW TO SEE", new System.Drawing.Font("Microsoft JhengHei UI", 18F));
+            addTextBox(new Point(201, 497), new Size(1000, 137), "Stop code: CRITICAL PROCESS DIED", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             addImageBox(new Point(117, 436), new Size(88, 75));
             BSODData.Apply();
         }
 
-        private void addTextBox(Point location, Size size, String text, ContextMenuStrip strip, Font f = null)
+        private void InitWin7()
+        {
+            BSODData.Clear();
+            BSODData.data.bc = Color.FromArgb(0, 0, 127);
+            addTextBox(new Point(109, 30), new Size(1211, 624), "\n\nA problem has been detect and Windows has been shut down to prevent damage to your computer\n\n\nPAGE_FAULT_IN_MONPAGED_AREA\n\n\nIf this is the first time you've seen this Stop errror screen,\nrestart your computer. If this screen appears again, follow these steps:\n\nCheck to make sure any new hardware or software is properly installed.\nIf this is a new instalation, ask your hardware or software manufacturer\nfor any Windows updates you might need.\n\nIf problems continue, disable or remove any newly unstalled hardware\nor software. Disable BIOS memory options sych as caching or shadowing.\nIf you need to use Safe Mode to remove or disable components, restart\nyour computer, press F8 to select Advanced Startup options, and then\nselect Safe Mode.\n\n\n\nTechnical information:\n*** STOP: 0x00000050 (Oxfffff680001a8c20, 0x0000000000000000, 0xfffff8000306d31b) \n", new System.Drawing.Font("Perfect DOS VGA 437", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
+            BSODData.Apply();
+        }
+
+        private void addTextBox(Point location, Size size, String text, Font f = null)
         {
             var label = new BSODLabel(location, size, text, f);
         }
         private void addImageBox(Point location, Size size)
         {
             var bp = new BSODImage(location, size);
+        }
+        private void addPanel(Point location, Size size, Color c)
+        {
+            var bp = new BSODPanel(location, size, c);
         }
 
         public static RichTextBox createTextBox(Point location, Size size, String text, ContextMenuStrip strip, Font f = null)
@@ -175,6 +187,7 @@ namespace BlueScreen_Simulator
         }
         public void BSOD_Start()
         {
+            BSODData.HideHidden(true);
             BSODLabel.FormatAll();
 
             ToLog("BSOD START");
@@ -221,6 +234,7 @@ namespace BlueScreen_Simulator
                 Perc_Timer.Stop();
                 BSOD_Timer.Stop();
                 BSODLabel.UndoAll();
+                BSODData.HideHidden(false);
                 lbl_password.Visible = true;
                 txt_password.Visible = true;
 
@@ -233,7 +247,11 @@ namespace BlueScreen_Simulator
             else
             {
                 password_in.Select();
-                CursorShown = false;
+                if (BSODData.data.hideCursor)
+                {
+                    CursorShown = false;
+                }
+
                 this.TopMost = true;
                 FormatTexts();
             }
@@ -441,6 +459,7 @@ namespace BlueScreen_Simulator
             preview = !preview;
             btn_start.Enabled = !preview;
             txt_password.Enabled = !preview;
+            BSODData.HideHidden(preview);
             if (preview)
             {
                 btn_preview.BackColor = Color.Green;
@@ -486,6 +505,11 @@ namespace BlueScreen_Simulator
                     ControlMoverOrResizer.Init(item.pb);
                     item.pb.BorderStyle = BorderStyle.FixedSingle;
                 }
+                foreach (var item in BSODData.data.panels)
+                {
+                    ControlMoverOrResizer.Init(item.pb);
+                    item.pb.BorderStyle = BorderStyle.FixedSingle;
+                }
             }
             if (!editing)
             {
@@ -496,6 +520,11 @@ namespace BlueScreen_Simulator
                     item.textBox.BorderStyle = BorderStyle.None;
                 }
                 foreach (var item in BSODData.data.images)
+                {
+                    ControlMoverOrResizer.Unload(item.pb);
+                    item.pb.BorderStyle = BorderStyle.None;
+                }
+                foreach (var item in BSODData.data.panels)
                 {
                     ControlMoverOrResizer.Unload(item.pb);
                     item.pb.BorderStyle = BorderStyle.None;
@@ -515,12 +544,14 @@ namespace BlueScreen_Simulator
             lABELToolStripMenuItem1.Visible = false;
             iMAGEToolStripMenuItem1.Visible = false;
             iTEMToolStripMenuItem.Visible = false;
+            pANELToolStripMenuItem.Visible = false;
             foreach (var item in BSODData.data.labels)
             {
                 if (item.textBox == _sourceControl)
                 {
                     lABELToolStripMenuItem1.Visible = true;
                     iTEMToolStripMenuItem.Visible = true;
+                    hIDDENToolStripMenuItem.Checked = item.hidden;
                 }
             }
             foreach (var item in BSODData.data.images)
@@ -529,18 +560,28 @@ namespace BlueScreen_Simulator
                 {
                     iMAGEToolStripMenuItem1.Visible = true;
                     iTEMToolStripMenuItem.Visible = true;
+                    hIDDENToolStripMenuItem.Checked = item.hidden;
+                }
+            }
+            foreach (var item in BSODData.data.panels)
+            {
+                if (item.pb == _sourceControl)
+                {
+                    pANELToolStripMenuItem.Visible = true;
+                    iTEMToolStripMenuItem.Visible = true;
+                    hIDDENToolStripMenuItem.Checked = item.hidden;
                 }
             }
         }
 
         private void win7ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadFile("win7.txt{resource/txt/prop}");
+            InitWin7();
         }
 
         private void lABELToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            addTextBox(new Point(0, 0), new Size(100, 100), "Label", this.contextMenuStrip1);
+            addTextBox(new Point(0, 0), new Size(100, 100), "Label");
             if (editing)
             {
                 ToggleDesignMode();
@@ -573,6 +614,14 @@ namespace BlueScreen_Simulator
                 if (item.pb == _sourceControl)
                 {
                     BSODData.data.images.Remove(item);
+                    break;
+                }
+            }
+            foreach (var item in BSODData.data.panels)
+            {
+                if (item.pb == _sourceControl)
+                {
+                    BSODData.data.panels.Remove(item);
                     break;
                 }
             }
@@ -618,7 +667,7 @@ namespace BlueScreen_Simulator
 
         public bool BSODActive()
         {
-            return BSOD_Timer.Enabled||preview;
+            return BSOD_Timer.Enabled || preview;
         }
 
         internal void updateElements()
@@ -628,51 +677,11 @@ namespace BlueScreen_Simulator
 
         private void mOVETOFRONTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (var item in BSODData.data.labels)
-            {
-                if (item.textBox == _sourceControl)
-                {
-                    var tmp = BSODData.data.labels[0];
-                    BSODData.data.labels.Remove(item);
-                    BSODData.data.labels.Add(tmp);
-                    BSODData.data.labels[0] = item;
-                    break;
-                }
-            }
-            foreach (var item in BSODData.data.images)
-            {
-                if (item.pb == _sourceControl)
-                {
-                    var tmp = BSODData.data.images[0];
-                    BSODData.data.images.Remove(item);
-                    BSODData.data.images.Add(tmp);
-                    BSODData.data.images[0] = item;
-                    break;
-                }
-            }
             _sourceControl.BringToFront();
         }
 
         private void mOVETOBACKToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (var item in BSODData.data.labels)
-            {
-                if (item.textBox == _sourceControl)
-                {
-                    BSODData.data.labels.Remove(item);
-                    BSODData.data.labels.Add(item);
-                    break;
-                }
-            }
-            foreach (var item in BSODData.data.images)
-            {
-                if (item.pb == _sourceControl)
-                {
-                    BSODData.data.images.Remove(item);
-                    BSODData.data.images.Add(item);
-                    break;
-                }
-            }
             _sourceControl.SendToBack();
         }
 
@@ -682,7 +691,121 @@ namespace BlueScreen_Simulator
             BSODData.Clean();
             BSODData.Apply();
         }
+
+        private void cOLORToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = _sourceControl.ForeColor;
+            var dialog = colorDialog1.ShowDialog();
+            if (dialog == DialogResult.OK)
+            {
+                _sourceControl.BackColor = colorDialog1.Color;
+            }
+        }
+
+        private void pANELToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            addPanel(new Point(0, 0), new Size(100, 100), Color.Black);
+            if (editing)
+            {
+                ToggleDesignMode();
+                ToggleDesignMode();
+            }
+        }
+
+        private void DesignTimer_Tick(object sender, EventArgs e)
+        {
+            if (BSODActive()) return;
+            txt_password.BringToFront();
+            lbl_password.BringToFront();
+            btn_preview.BringToFront();
+            btn_start.BringToFront();
+        }
+
+        private void hIDEBUTTONSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hIDEBUTTONSToolStripMenuItem.Checked = !hIDEBUTTONSToolStripMenuItem.Checked;
+            btn_start.Visible = !hIDEBUTTONSToolStripMenuItem.Checked;
+            btn_preview.Visible = !hIDEBUTTONSToolStripMenuItem.Checked;
+            lbl_password.Visible = !hIDEBUTTONSToolStripMenuItem.Checked;
+            txt_password.Visible = !hIDEBUTTONSToolStripMenuItem.Checked;
+        }
+
+        private void hIDDENToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var item in BSODData.data.labels)
+            {
+                if (item.textBox == _sourceControl)
+                {
+                    item.hidden = !item.hidden;
+                    hIDDENToolStripMenuItem.Checked = item.hidden;
+                    break;
+                }
+            }
+            foreach (var item in BSODData.data.images)
+            {
+                if (item.pb == _sourceControl)
+                {
+                    item.hidden = !item.hidden;
+                    hIDDENToolStripMenuItem.Checked = item.hidden;
+                    break;
+                }
+            }
+            foreach (var item in BSODData.data.panels)
+            {
+                if (item.pb == _sourceControl)
+                {
+                    item.hidden = !item.hidden;
+                    hIDDENToolStripMenuItem.Checked = item.hidden;
+                    break;
+                }
+            }
+        }
     }
+
+    [Serializable]
+    public class BSODPanel
+    {
+        [NonSerialized]
+        public Panel pb;
+        Color c;
+        public Point location;
+        public Size size;
+        public int zIndex = 0;
+        public bool hidden = false;
+        public BSODPanel(Point location, Size size, Color c)
+        {
+            this.c = c;
+            this.location = location;
+            this.size = size;
+            BSODData.data.panels.Add(this);
+            CreatePanel();
+        }
+        public void CreatePanel()
+        {
+            pb = new Panel();
+            pb.BackColor = c;
+            pb.Location = location;
+            pb.Size = size;
+            BSODData.form.Controls.Add(pb);
+            pb.ContextMenuStrip = BSODData.form.strip;
+            pb.Show();
+        }
+        public void UpdateIndexes()
+        {
+            BSODData.form.Controls.SetChildIndex(pb, zIndex);
+        }
+        public void SyncSettings()
+        {
+            var scaleFactor = BSODData.form.scalefactor;
+            pb.Scale(new SizeF(1 / scaleFactor.Width, 1 / scaleFactor.Height));
+            c = pb.BackColor;
+            location = pb.Location;
+            size = pb.Size;
+            zIndex = BSODData.form.Controls.GetChildIndex(pb);
+            pb.Scale(scaleFactor);
+        }
+    }
+
     [Serializable]
     public class BSODImage
     {
@@ -691,6 +814,8 @@ namespace BlueScreen_Simulator
         Image image;
         public Point location;
         public Size size;
+        public int zIndex = 0;
+        public bool hidden = false;
         public BSODImage(Point location, Size size, Image img = null)
         {
             image = img;
@@ -706,12 +831,17 @@ namespace BlueScreen_Simulator
             {
                 image = BlueScreen_Simulator.Properties.Resources.QR;
             }
+            pb.ContextMenuStrip = BSODData.form.strip;
             pb.Image = image;
             pb.SizeMode = PictureBoxSizeMode.Zoom;
             pb.Location = location;
             pb.Size = size;
             BSODData.form.Controls.Add(pb);
             pb.Show();
+        }
+        public void UpdateIndexes()
+        {
+            BSODData.form.Controls.SetChildIndex(pb, zIndex);
         }
         public void SyncSettings()
         {
@@ -720,6 +850,7 @@ namespace BlueScreen_Simulator
             image = pb.Image;
             location = pb.Location;
             size = pb.Size;
+            zIndex = BSODData.form.Controls.GetChildIndex(pb);
             pb.Scale(scaleFactor);
         }
     }
@@ -734,6 +865,8 @@ namespace BlueScreen_Simulator
         public String text;
         public Font f = null;
         Color foreColor = Color.WhiteSmoke;
+        public int zIndex = 0;
+        public bool hidden = false;
 
         public BSODLabel(Point location, Size size, String text, Font f = null)
         {
@@ -764,11 +897,15 @@ namespace BlueScreen_Simulator
             textBox.TabIndex = 1;
             textBox.Text = text;
             BSODData.form.Controls.Add(textBox);
+
             textBox.Show();
 
             textBox.Enter += TextBox_Enter;
         }
-
+        public void UpdateIndexes()
+        {
+            BSODData.form.Controls.SetChildIndex(textBox, zIndex);
+        }
         private void TextBox_Enter(object sender, EventArgs e)
         {
             if (BSODData.form.BSODActive())
@@ -786,6 +923,7 @@ namespace BlueScreen_Simulator
             text = textBox.Text;
             foreColor = textBox.ForeColor;
             f = textBox.Font;
+            zIndex = BSODData.form.Controls.GetChildIndex(textBox);
             textBox.Scale(scaleFactor);
         }
 
@@ -860,11 +998,12 @@ namespace BlueScreen_Simulator
         {
             public List<BSODLabel> labels = new List<BSODLabel>();
             public List<BSODImage> images = new List<BSODImage>();
+            public List<BSODPanel> panels = new List<BSODPanel>();
 
             public int cmin = 1, cmax = 8, tmin = 1000, tmax = 3500;
             public Color bc = Color.FromArgb(0, 120, 215);
             public string password = "1234", cmd = "";
-            public bool unsafeMode=true, closeAfterCmd;
+            public bool unsafeMode = true, closeAfterCmd, hideCursor = true;
         }
         public static Data data = new Data();
         public static byte[] Serialize()
@@ -885,6 +1024,18 @@ namespace BlueScreen_Simulator
             BinaryFormatter b = new BinaryFormatter();
             Clear();
             BSODData.data = (Data)b.Deserialize(s);
+            if (BSODData.data.images == null)
+            {
+                BSODData.data.images = new List<BSODImage>();
+            }
+            if (BSODData.data.panels == null)
+            {
+                BSODData.data.panels = new List<BSODPanel>();
+            }
+            if (BSODData.data.labels == null)
+            {
+                BSODData.data.labels = new List<BSODLabel>();
+            }
             Apply();
             s.Close();
         }
@@ -899,13 +1050,16 @@ namespace BlueScreen_Simulator
             {
                 item.SyncSettings();
             }
+            foreach (var item in data.panels)
+            {
+                item.SyncSettings();
+            }
             data.password = form.txt_password.Text;
             data.bc = form.BackColor;
         }
 
-        public static void Apply()
+        public static void CreateAll()
         {
-            Clean();
             foreach (var item in data.labels)
             {
                 item.CreateTextBox();
@@ -916,6 +1070,38 @@ namespace BlueScreen_Simulator
                 item.CreatePictureBox();
                 item.pb.Scale(BSODData.form.scalefactor);
             }
+            foreach (var item in data.panels)
+            {
+                item.CreatePanel();
+                item.pb.Scale(BSODData.form.scalefactor);
+            }
+        }
+
+        public static void UpdateZAll()
+        {
+            foreach (var item in data.labels)
+            {
+                item.UpdateIndexes();
+            }
+            foreach (var item in data.images)
+            {
+                item.UpdateIndexes();
+            }
+            foreach (var item in data.panels)
+            {
+                item.UpdateIndexes();
+            }
+        }
+
+        public static void Apply()
+        {
+            if (BSODData.form.editing)
+            {
+                BSODData.form.ToggleDesignMode();
+            }
+            Clean();
+            CreateAll();
+            UpdateZAll();
             form.changeBColor(data.bc);
             form.updateElements();
         }
@@ -931,22 +1117,38 @@ namespace BlueScreen_Simulator
                 if (item.pb != null)
                     item.pb.Dispose();
             }
-        }
-        public static void Clear()
-        {
-            foreach (var item in data.labels)
-            {
-                if (item.textBox != null)
-                    item.textBox.Dispose();
-            }
-            foreach (var item in data.images)
+            foreach (var item in data.panels)
             {
                 if (item.pb != null)
                     item.pb.Dispose();
             }
+        }
+        public static void Clear()
+        {
+            Clean();
             data.labels.Clear();
             data.images.Clear();
+            data.panels.Clear();
             data = new Data();
+        }
+
+        internal static void HideHidden(bool hidden)
+        {
+            foreach (var item in data.labels)
+            {
+                if(item.hidden)
+                item.textBox.Visible = !hidden;
+            }
+            foreach (var item in data.images)
+            {
+                if (item.hidden)
+                    item.pb.Visible = !hidden;
+            }
+            foreach (var item in data.panels)
+            {
+                if (item.hidden)
+                    item.pb.Visible = !hidden;
+            }
         }
     }
 

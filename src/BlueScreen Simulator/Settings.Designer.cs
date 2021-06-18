@@ -50,6 +50,9 @@
             this.chk_close_after_exec = new System.Windows.Forms.CheckBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.chk_hide_cursor = new System.Windows.Forms.CheckBox();
+            this.txt_password = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -89,6 +92,9 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tabPage2.Controls.Add(this.label1);
+            this.tabPage2.Controls.Add(this.txt_password);
+            this.tabPage2.Controls.Add(this.chk_hide_cursor);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -331,6 +337,33 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // chk_hide_cursor
+            // 
+            this.chk_hide_cursor.AutoSize = true;
+            this.chk_hide_cursor.Location = new System.Drawing.Point(9, 142);
+            this.chk_hide_cursor.Name = "chk_hide_cursor";
+            this.chk_hide_cursor.Size = new System.Drawing.Size(114, 17);
+            this.chk_hide_cursor.TabIndex = 36;
+            this.chk_hide_cursor.Text = "Hide mouse cursor";
+            this.chk_hide_cursor.UseVisualStyleBackColor = true;
+            // 
+            // txt_password
+            // 
+            this.txt_password.Location = new System.Drawing.Point(102, 162);
+            this.txt_password.Name = "txt_password";
+            this.txt_password.Size = new System.Drawing.Size(100, 20);
+            this.txt_password.TabIndex = 37;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(8, 162);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 20);
+            this.label1.TabIndex = 40;
+            this.label1.Text = "Password:";
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -347,6 +380,7 @@
             this.Text = "Settings";
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tmax)).EndInit();
@@ -385,5 +419,8 @@
         public System.Windows.Forms.CheckBox unsmode;
         public System.Windows.Forms.CheckBox chk_close_after_exec;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.CheckBox chk_hide_cursor;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txt_password;
     }
 }

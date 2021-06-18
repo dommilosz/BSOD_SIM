@@ -72,6 +72,10 @@
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="bin\Debug\demo.bsod" />
+    <None Include="bin\Debug\win10-gsod.bsod" />
+    <None Include="bin\Debug\win10.bsod" />
+    <None Include="bin\Debug\win7.bsod" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -86,11 +90,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\win10-gsod.bsod" />
+    <None Include="Resources\win10.bsod" />
+    <None Include="Resources\win7.bsod" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\demo.bsod" />
     <None Include="Resources\QR.gif" />
   </ItemGroup>
   <ItemGroup>
@@ -103,15 +111,6 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\default.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\varsdemo.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\win7.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

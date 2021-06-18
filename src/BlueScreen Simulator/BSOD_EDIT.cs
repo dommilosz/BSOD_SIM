@@ -6,7 +6,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Windows.Forms;
 
 namespace BlueScreen_Simulator
@@ -19,6 +21,10 @@ namespace BlueScreen_Simulator
         Size thissize;
         public SizeF scalefactor;
         public ContextMenuStrip strip;
+        public static string SaveSequence = "{##BSOD##-##Save##}".Replace("#", "");
+        public static string TemplateSequence = "{##BSOD##-##Template##}".Replace("#", "");
+        public static byte[] SaveSequenceB = Encoding.ASCII.GetBytes(SaveSequence);
+        public static byte[] TemplateSequenceB = Encoding.ASCII.GetBytes(TemplateSequence);
 
         public BSOD_EDIT()
         {
@@ -27,7 +33,7 @@ namespace BlueScreen_Simulator
             BSODData.form = this;
             thissize = this.Size;
             ThisScale();
-            InitDefault();
+            InitResourceSave("win10");
 
             ToLog("----NEW-RUN----");
 
@@ -36,7 +42,7 @@ namespace BlueScreen_Simulator
             try
             {
                 var txt = File.ReadAllText(Application.ExecutablePath);
-                if (txt.Contains("{BSOD-Save}")) { LoadFile(Application.ExecutablePath); BSOD_Start(); }
+                if (txt.Contains(SaveSequence)) { LoadFile(Application.ExecutablePath,true); BSOD_Start(); }
             }
             catch { }
             CursorShown = true;
@@ -61,31 +67,41 @@ namespace BlueScreen_Simulator
                 }
             }
             catch (Exception ex) { ToLog(ex.ToString()); }
+
+
+            templatesToolStripMenuItem.DropDownItems.Clear();
+            foreach (PropertyInfo property in typeof(Properties.Resources).GetProperties
+    (BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
+            {
+                try
+                {
+                    var data = (byte[])Properties.Resources.ResourceManager.GetObject(property.Name);
+                    if (Utils.FindPosition(new MemoryStream(data), TemplateSequenceB) >=0)
+                    {
+                        var item = new ToolStripMenuItem(property.Name);
+                        item.Click += Item_Click;
+                        templatesToolStripMenuItem.DropDownItems.Add(item);
+                    }
+                }
+                catch { }
+            }
         }
 
-        private void InitDefault()
+        private void InitResourceSave(string name)
         {
-            BSODData.Clear();
-            addTextBox(new Point(124, 250), new Size(1000, 124), "Your PC ran into a problem and needs to restart.We\'re\njust collecting some error info, and then we\'ll restart for\nyou", new System.Drawing.Font("Microsoft JhengHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238))));
-            addTextBox(new Point(124, 69), new Size(1000, 170), ":(", new System.Drawing.Font("Microsoft YaHei UI", 100F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2))));
-            addTextBox(new Point(201, 475), new Size(1000, 16), "If you call a support person, give them this info:", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            addTextBox(new Point(201, 436), new Size(1000, 33), "For more information about this issue and possible fixes, visit https://windows.com/stopcode", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            addTextBox(new Point(124, 380), new Size(441, 33), "{p}% complete", new System.Drawing.Font("Microsoft JhengHei UI", 18F));
-            addTextBox(new Point(201, 497), new Size(1000, 137), "Stop code: CRITICAL PROCESS DIED", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            addImageBox(new Point(117, 436), new Size(88, 75));
-            BSODData.Apply();
+            BSODData.LoadData((byte[])Properties.Resources.ResourceManager.GetObject(name),"template");
         }
 
         private void InitDemo()
         {
             BSODData.Clear();
-            addTextBox(new Point(124, 200), new Size(1000, 154), "{p}         - %                                            {width}       - width of this screen\n{pass}    - password                                 {height}      - height of this screen\n{cmd}     - command to run 100%           {tmin} {tmax} {cmin} {cmax} - percent step time and count\n{scale-x} - scale width on this screen        {unsmode} - is unsafemode checked (settings)\n{scale-y} - scale height on this screen      {closecmd} - is close after execution checked (settings)", new System.Drawing.Font("Microsoft JhengHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238))));
+            addImageBox(new Point(117, 436), new Size(88, 75));
             addTextBox(new Point(124, 69), new Size(1000, 170), ":DEMO:", new System.Drawing.Font("Microsoft YaHei UI", 100F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2))));
             addTextBox(new Point(201, 475), new Size(1000, 16), "If you call a support person, give them this info:", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             addTextBox(new Point(201, 436), new Size(1000, 33), "&11 &22 &33 &44 &55 &66 &77 &88 &99 &00 &aa &bb &cc &dd &ee &ff", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             addTextBox(new Point(124, 380), new Size(441, 33), "CLICK PREVIEW TO SEE", new System.Drawing.Font("Microsoft JhengHei UI", 18F));
             addTextBox(new Point(201, 497), new Size(1000, 137), "Stop code: CRITICAL PROCESS DIED", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            addImageBox(new Point(117, 436), new Size(88, 75));
+            addTextBox(new Point(124, 200), new Size(1000, 154), "{p}         - %                                            {width}       - width of this screen\n{pass}    - password                                 {height}      - height of this screen\n{cmd}     - command to run 100%           {tmin} {tmax} {cmin} {cmax} - percent step time and count\n{scale-x} - scale width on this screen        {unsmode} - is unsafemode checked (settings)\n{scale-y} - scale height on this screen      {closecmd} - is close after execution checked (settings)", new System.Drawing.Font("Microsoft JhengHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238))));
             BSODData.Apply();
         }
 
@@ -321,7 +337,7 @@ namespace BlueScreen_Simulator
             catch (Exception ex) { ToLog(ex.ToString()); }
         }
 
-        private void LoadFile(string path)
+        private void LoadFile(string path,bool autorun=false)
         {
 
             openFileDialog1.InitialDirectory = Application.StartupPath + @"\Data";
@@ -344,13 +360,7 @@ namespace BlueScreen_Simulator
                 try
                 {
                     var fileContent = File.OpenRead(openFileDialog1.FileName);
-                    var target = System.Text.Encoding.ASCII.GetBytes("{#BSOD#-#Save#}".Replace("#", ""));
-                    var pos = Utils.FindPosition(fileContent, target);
-                    fileContent.Close();
-                    fileContent = File.OpenRead(openFileDialog1.FileName);
-                    fileContent.Position = pos + 11;
-                    BSODData.Deserialize(Utils.ReadToEnd(fileContent, false));
-                    fileContent.Close();
+                    BSODData.LoadData(fileContent);
                 }
                 catch (Exception ex) { ToLog(ex.ToString()); }
             }
@@ -364,7 +374,7 @@ namespace BlueScreen_Simulator
             var exec = File.ReadAllBytes(Application.ExecutablePath);
             var stream = File.OpenWrite(path);
             stream.Write(exec, 0, exec.Length);
-            stream.Write(System.Text.Encoding.ASCII.GetBytes("{#BSOD#-#Save#}".Replace("#", "")), 0, 11);
+            stream.Write(SaveSequenceB, 0, SaveSequenceB.Length);
             stream.Write(dane, 0, dane.Length);
             stream.Flush();
             stream.Close();
@@ -374,7 +384,7 @@ namespace BlueScreen_Simulator
             if (File.Exists(path))
                 File.Delete(path);
             var stream = File.OpenWrite(path);
-            stream.Write(System.Text.Encoding.ASCII.GetBytes("{#BSOD#-#Save#}".Replace("#", "")), 0, 11);
+            stream.Write(SaveSequenceB, 0, SaveSequenceB.Length);
             stream.Write(dane, 0, dane.Length);
             stream.Flush();
             stream.Close();
@@ -475,12 +485,7 @@ namespace BlueScreen_Simulator
 
         private void rESETToolStripMenuItem2_Click_1(object sender, EventArgs e)
         {
-            InitDefault();
-        }
-
-        private void lOADDEMOToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InitDemo();
+            InitResourceSave("win10");
         }
 
         public bool editing = false;
@@ -574,9 +579,9 @@ namespace BlueScreen_Simulator
             }
         }
 
-        private void win7ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Item_Click(object sender, EventArgs e)
         {
-            InitWin7();
+            InitResourceSave(((ToolStripMenuItem)sender).Text);
         }
 
         private void lABELToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1150,6 +1155,30 @@ namespace BlueScreen_Simulator
                     item.pb.Visible = !hidden;
             }
         }
+
+        public static void LoadData(Stream stream,string type = "save")
+        {
+            byte[] target;
+            switch (type)
+            {
+                
+                case "template": { target = BSOD_EDIT.TemplateSequenceB; break; }
+                default:
+                case "save": { target = BSOD_EDIT.SaveSequenceB; break; }
+            }
+            
+            
+            var pos = Utils.FindPosition(stream, target);
+            stream.Position = pos + target.Length;
+            BSODData.Deserialize(Utils.ReadToEnd(stream, false));
+            stream.Close();
+        }
+
+        public static void LoadData(byte[] bytes, string type = "save")
+        {
+            Stream s = new MemoryStream(bytes);
+            LoadData(s,type);
+        }
     }
 
     public static class Utils
@@ -1212,7 +1241,7 @@ namespace BlueScreen_Simulator
 
             byte[] buffer = new byte[byteSequence.Length];
 
-            using (BufferedStream bufStream = new BufferedStream(stream, byteSequence.Length))
+            BufferedStream bufStream = new BufferedStream(stream, byteSequence.Length);
             {
                 int i;
                 while ((i = bufStream.Read(buffer, 0, byteSequence.Length)) == byteSequence.Length)

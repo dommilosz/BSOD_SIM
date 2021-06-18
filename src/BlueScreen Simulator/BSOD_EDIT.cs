@@ -16,7 +16,7 @@ namespace BlueScreen_Simulator
     public partial class BSOD_EDIT : Form
     {
         string savepatch = "not saved";
-        readonly string[] args = new string[100];
+        public readonly List<string> args = new List<string>();
         bool preview = false;
         Size thissize;
         public SizeF scalefactor;
@@ -37,33 +37,33 @@ namespace BlueScreen_Simulator
 
             ToLog("----NEW-RUN----");
 
-            args = Environment.GetCommandLineArgs();
+            args = Environment.GetCommandLineArgs().ToList();
             ToLog(string.Join(" ", args));
             try
             {
                 var txt = File.ReadAllText(Application.ExecutablePath);
-                if (txt.Contains(SaveSequence)) { LoadFile(Application.ExecutablePath,true); BSOD_Start(); }
+                if (txt.Contains(SaveSequence))
+                {
+                    LoadFile(Application.ExecutablePath, true); if (BSODData.data.AutoStart)
+                        BSOD_Start();
+                }
             }
             catch { }
             CursorShown = true;
             try
             {
-                if (args.Length > 1)
+                if (args.Count > 1)
                 {
-                    if (args[1] == "loadfile")
+                    try
                     {
-                        try
-                        {
-                            string[] tmpvar = args;
-                            tmpvar[0] = null;
-                            tmpvar[1] = null;
-                            ToLog(string.Join(" ", tmpvar).TrimStart(' '));
-                            LoadFile(string.Join(" ", tmpvar));
-
+                        var tmpvar = args.ToArray().ToList();
+                        tmpvar.RemoveAt(0);
+                        ToLog(string.Join(" ", tmpvar).TrimStart(' '));
+                        LoadFile(string.Join(" ", tmpvar).TrimStart(' '));
+                        if (BSODData.data.AutoStart)
                             BSOD_Start();
-                        }
-                        catch (Exception ex) { this.Close(); ToLog(ex.ToString()); }
                     }
+                    catch (Exception ex) { this.Close(); ToLog(ex.ToString()); }
                 }
             }
             catch (Exception ex) { ToLog(ex.ToString()); }
@@ -76,7 +76,7 @@ namespace BlueScreen_Simulator
                 try
                 {
                     var data = (byte[])Properties.Resources.ResourceManager.GetObject(property.Name);
-                    if (Utils.FindPosition(new MemoryStream(data), TemplateSequenceB) >=0)
+                    if (Utils.FindPosition(new MemoryStream(data), TemplateSequenceB) >= 0)
                     {
                         var item = new ToolStripMenuItem(property.Name);
                         item.Click += Item_Click;
@@ -89,28 +89,7 @@ namespace BlueScreen_Simulator
 
         private void InitResourceSave(string name)
         {
-            BSODData.LoadData((byte[])Properties.Resources.ResourceManager.GetObject(name),"template");
-        }
-
-        private void InitDemo()
-        {
-            BSODData.Clear();
-            addImageBox(new Point(117, 436), new Size(88, 75));
-            addTextBox(new Point(124, 69), new Size(1000, 170), ":DEMO:", new System.Drawing.Font("Microsoft YaHei UI", 100F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2))));
-            addTextBox(new Point(201, 475), new Size(1000, 16), "If you call a support person, give them this info:", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            addTextBox(new Point(201, 436), new Size(1000, 33), "&11 &22 &33 &44 &55 &66 &77 &88 &99 &00 &aa &bb &cc &dd &ee &ff", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            addTextBox(new Point(124, 380), new Size(441, 33), "CLICK PREVIEW TO SEE", new System.Drawing.Font("Microsoft JhengHei UI", 18F));
-            addTextBox(new Point(201, 497), new Size(1000, 137), "Stop code: CRITICAL PROCESS DIED", new System.Drawing.Font("Microsoft JhengHei UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            addTextBox(new Point(124, 200), new Size(1000, 154), "{p}         - %                                            {width}       - width of this screen\n{pass}    - password                                 {height}      - height of this screen\n{cmd}     - command to run 100%           {tmin} {tmax} {cmin} {cmax} - percent step time and count\n{scale-x} - scale width on this screen        {unsmode} - is unsafemode checked (settings)\n{scale-y} - scale height on this screen      {closecmd} - is close after execution checked (settings)", new System.Drawing.Font("Microsoft JhengHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238))));
-            BSODData.Apply();
-        }
-
-        private void InitWin7()
-        {
-            BSODData.Clear();
-            BSODData.data.bc = Color.FromArgb(0, 0, 127);
-            addTextBox(new Point(109, 30), new Size(1211, 624), "\n\nA problem has been detect and Windows has been shut down to prevent damage to your computer\n\n\nPAGE_FAULT_IN_MONPAGED_AREA\n\n\nIf this is the first time you've seen this Stop errror screen,\nrestart your computer. If this screen appears again, follow these steps:\n\nCheck to make sure any new hardware or software is properly installed.\nIf this is a new instalation, ask your hardware or software manufacturer\nfor any Windows updates you might need.\n\nIf problems continue, disable or remove any newly unstalled hardware\nor software. Disable BIOS memory options sych as caching or shadowing.\nIf you need to use Safe Mode to remove or disable components, restart\nyour computer, press F8 to select Advanced Startup options, and then\nselect Safe Mode.\n\n\n\nTechnical information:\n*** STOP: 0x00000050 (Oxfffff680001a8c20, 0x0000000000000000, 0xfffff8000306d31b) \n", new System.Drawing.Font("Perfect DOS VGA 437", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            BSODData.Apply();
+            BSODData.LoadData((byte[])Properties.Resources.ResourceManager.GetObject(name), "template");
         }
 
         private void addTextBox(Point location, Size size, String text, Font f = null)
@@ -184,7 +163,7 @@ namespace BlueScreen_Simulator
 
         private void ToLog(string log)
         {
-
+            //File.AppendAllText("log.log", log + "\n");
         }
 
         int pr = 0;
@@ -337,7 +316,7 @@ namespace BlueScreen_Simulator
             catch (Exception ex) { ToLog(ex.ToString()); }
         }
 
-        private void LoadFile(string path,bool autorun=false)
+        private void LoadFile(string path, bool autorun = false)
         {
 
             openFileDialog1.InitialDirectory = Application.StartupPath + @"\Data";
@@ -357,12 +336,8 @@ namespace BlueScreen_Simulator
             openFileDialog1.InitialDirectory = Application.StartupPath + @"\Data";
             if (dialog == DialogResult.OK)
             {
-                try
-                {
-                    var fileContent = File.OpenRead(openFileDialog1.FileName);
-                    BSODData.LoadData(fileContent);
-                }
-                catch (Exception ex) { ToLog(ex.ToString()); }
+                var fileContent = File.OpenRead(openFileDialog1.FileName);
+                BSODData.LoadData(fileContent);
             }
             saveFileDialog1.FileName = "";
             openFileDialog1.FileName = "";
@@ -1008,9 +983,10 @@ namespace BlueScreen_Simulator
             public int cmin = 1, cmax = 8, tmin = 1000, tmax = 3500;
             public Color bc = Color.FromArgb(0, 120, 215);
             public string password = "1234", cmd = "";
-            public bool unsafeMode = true, closeAfterCmd, hideCursor = true;
+            public bool unsafeMode = true, closeAfterCmd, hideCursor = true, AutoStart = true;
         }
         public static Data data = new Data();
+
         public static byte[] Serialize()
         {
             SyncSettings();
@@ -1141,8 +1117,8 @@ namespace BlueScreen_Simulator
         {
             foreach (var item in data.labels)
             {
-                if(item.hidden)
-                item.textBox.Visible = !hidden;
+                if (item.hidden)
+                    item.textBox.Visible = !hidden;
             }
             foreach (var item in data.images)
             {
@@ -1156,18 +1132,18 @@ namespace BlueScreen_Simulator
             }
         }
 
-        public static void LoadData(Stream stream,string type = "save")
+        public static void LoadData(Stream stream, string type = "save")
         {
             byte[] target;
             switch (type)
             {
-                
+
                 case "template": { target = BSOD_EDIT.TemplateSequenceB; break; }
                 default:
                 case "save": { target = BSOD_EDIT.SaveSequenceB; break; }
             }
-            
-            
+
+
             var pos = Utils.FindPosition(stream, target);
             stream.Position = pos + target.Length;
             BSODData.Deserialize(Utils.ReadToEnd(stream, false));
@@ -1177,7 +1153,7 @@ namespace BlueScreen_Simulator
         public static void LoadData(byte[] bytes, string type = "save")
         {
             Stream s = new MemoryStream(bytes);
-            LoadData(s,type);
+            LoadData(s, type);
         }
     }
 

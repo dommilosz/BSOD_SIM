@@ -33,6 +33,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txt_password = new System.Windows.Forms.TextBox();
+            this.chk_hide_cursor = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,9 +53,7 @@
             this.chk_close_after_exec = new System.Windows.Forms.CheckBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.chk_hide_cursor = new System.Windows.Forms.CheckBox();
-            this.txt_password = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.chk_AutoStart = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -92,6 +93,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tabPage2.Controls.Add(this.chk_AutoStart);
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.txt_password);
             this.tabPage2.Controls.Add(this.chk_hide_cursor);
@@ -102,6 +104,33 @@
             this.tabPage2.Size = new System.Drawing.Size(405, 311);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "CUSTOMIZATION";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(8, 162);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 20);
+            this.label1.TabIndex = 40;
+            this.label1.Text = "Password:";
+            // 
+            // txt_password
+            // 
+            this.txt_password.Location = new System.Drawing.Point(102, 162);
+            this.txt_password.Name = "txt_password";
+            this.txt_password.Size = new System.Drawing.Size(100, 20);
+            this.txt_password.TabIndex = 37;
+            // 
+            // chk_hide_cursor
+            // 
+            this.chk_hide_cursor.AutoSize = true;
+            this.chk_hide_cursor.Location = new System.Drawing.Point(9, 142);
+            this.chk_hide_cursor.Name = "chk_hide_cursor";
+            this.chk_hide_cursor.Size = new System.Drawing.Size(114, 17);
+            this.chk_hide_cursor.TabIndex = 36;
+            this.chk_hide_cursor.Text = "Hide mouse cursor";
+            this.chk_hide_cursor.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -337,32 +366,15 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // chk_hide_cursor
+            // chk_AutoStart
             // 
-            this.chk_hide_cursor.AutoSize = true;
-            this.chk_hide_cursor.Location = new System.Drawing.Point(9, 142);
-            this.chk_hide_cursor.Name = "chk_hide_cursor";
-            this.chk_hide_cursor.Size = new System.Drawing.Size(114, 17);
-            this.chk_hide_cursor.TabIndex = 36;
-            this.chk_hide_cursor.Text = "Hide mouse cursor";
-            this.chk_hide_cursor.UseVisualStyleBackColor = true;
-            // 
-            // txt_password
-            // 
-            this.txt_password.Location = new System.Drawing.Point(102, 162);
-            this.txt_password.Name = "txt_password";
-            this.txt_password.Size = new System.Drawing.Size(100, 20);
-            this.txt_password.TabIndex = 37;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(8, 162);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 20);
-            this.label1.TabIndex = 40;
-            this.label1.Text = "Password:";
+            this.chk_AutoStart.AutoSize = true;
+            this.chk_AutoStart.Location = new System.Drawing.Point(157, 141);
+            this.chk_AutoStart.Name = "chk_AutoStart";
+            this.chk_AutoStart.Size = new System.Drawing.Size(188, 17);
+            this.chk_AutoStart.TabIndex = 41;
+            this.chk_AutoStart.Text = "Automaticly start after opening exe";
+            this.chk_AutoStart.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -422,5 +434,6 @@
         private System.Windows.Forms.CheckBox chk_hide_cursor;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_password;
+        private System.Windows.Forms.CheckBox chk_AutoStart;
     }
 }

@@ -38,6 +38,7 @@ namespace BlueScreen_Simulator
             tmax.Value = data.tmax;
             chk_hide_cursor.Checked = data.hideCursor;
             txt_password.Text = data.password;
+            chk_AutoStart.Checked = data.AutoStart;
         }
 
         private void Button6_Click(object sender, EventArgs e)
@@ -60,6 +61,7 @@ namespace BlueScreen_Simulator
             data.tmax = (int)tmax.Value;
             data.hideCursor = chk_hide_cursor.Checked;
             data.password = txt_password.Text;
+            data.AutoStart = chk_AutoStart.Checked;
             BSODData.Apply();
         }
 

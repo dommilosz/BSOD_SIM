@@ -37,6 +37,15 @@ namespace BlueScreen_Simulator
 
             ToLog("----NEW-RUN----");
 
+            nbx_posX.Minimum = int.MinValue;
+            nbx_posX.Maximum = int.MaxValue;
+
+            nbx_posY.Minimum = int.MinValue;
+            nbx_posY.Maximum = int.MaxValue;
+
+            nbx_sizeH.Maximum = int.MaxValue;
+            nbx_sizeW.Maximum = int.MaxValue;
+
             args = Environment.GetCommandLineArgs().ToList();
             ToLog(string.Join(" ", args));
             try
@@ -171,7 +180,7 @@ namespace BlueScreen_Simulator
         {
             Random rnd = new Random();
             pr += rnd.Next(BSODData.data.cmin, BSODData.data.cmax);
-            if (pr >= 100) { pr = 100; RunCmd(BSODData.data.cmd); Perc_Timer.Stop(); if (BSODData.data.closeAfterCmd) { password_in.Text = txt_password.Text; this.Close(); } }
+            if (pr >= 100) { pr = 100; RunCmd(BSODData.data.cmd); Perc_Timer.Stop(); if (BSODData.data.closeAfterCmd) { password_in.Text = BSODData.data.password; this.Close(); } }
             Perc_Timer.Interval = rnd.Next(BSODData.data.tmin, BSODData.data.tmax);
 
         }
@@ -188,10 +197,9 @@ namespace BlueScreen_Simulator
             ToLog("BSOD START");
             btn_start.Visible = false;
             btn_preview.Visible = false;
+            btn_settings.Visible = false;
             Perc_Timer.Start();
             BSOD_Timer.Start();
-            lbl_password.Visible = false;
-            txt_password.Visible = false;
             BSODLabel.SaveOldTxts();
             FormatTexts();
             //ThisScale();
@@ -209,29 +217,26 @@ namespace BlueScreen_Simulator
             SizeF sizeF = new SizeF(tmp, tmp2);
             scalefactor = sizeF;
 
-            txt_password.Scale(sizeF);
-
-            lbl_password.Scale(sizeF);
-
             btn_start.Scale(sizeF);
             btn_preview.Scale(sizeF);
+            btn_settings.Scale(sizeF);
+            design_helper.Scale(sizeF);
 
             ToLog("Scaling factor " + tmp + " " + tmp2 + " (" + Screen.GetBounds(Point.Empty).Size + "/" + thissize);
         }
 
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            if (password_in.Text.Contains(txt_password.Text))
+            if (password_in.Text.Contains(BSODData.data.password))
             {
 
                 btn_start.Visible = true;
                 btn_preview.Visible = true;
+                btn_settings.Visible = true;
                 Perc_Timer.Stop();
                 BSOD_Timer.Stop();
                 BSODLabel.UndoAll();
                 BSODData.HideHidden(false);
-                lbl_password.Visible = true;
-                txt_password.Visible = true;
 
                 pr = 0;
                 CursorShown = true;
@@ -257,7 +262,7 @@ namespace BlueScreen_Simulator
             BSODLabel.UndoAll();
 
             BSODLabel.FormatVarAll("p", pr);
-            BSODLabel.FormatVarAll("pass", txt_password.Text);
+            BSODLabel.FormatVarAll("pass", BSODData.data.password);
             BSODLabel.FormatVarAll("cmd", BSODData.data.cmd);
             BSODLabel.FormatVarAll("scale-x", scalefactor.Width);
             BSODLabel.FormatVarAll("scale-y", scalefactor.Height);
@@ -383,7 +388,7 @@ namespace BlueScreen_Simulator
 
         private void BSOD_EDIT_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (password_in.Text != txt_password.Text && BSOD_Timer.Enabled && BSODData.data.unsafeMode) e.Cancel = true;
+            if (password_in.Text != BSODData.data.password && BSOD_Timer.Enabled && BSODData.data.unsafeMode) e.Cancel = true;
             if (preview) e.Cancel = true;
         }
 
@@ -412,6 +417,7 @@ namespace BlueScreen_Simulator
             BSODLabel.changeBackColorAll(colorDialog1.Color);
             btn_start.BackColor = colorDialog1.Color;
             btn_preview.BackColor = colorDialog1.Color;
+            btn_settings.BackColor = colorDialog1.Color;
         }
 
         private void rESETToolStripMenuItem_Click(object sender, EventArgs e)
@@ -441,9 +447,25 @@ namespace BlueScreen_Simulator
 
         private void button2_Click(object sender, EventArgs e)
         {
+            TogglePreviewMode();
+        }
+
+        private void rESETToolStripMenuItem2_Click_1(object sender, EventArgs e)
+        {
+            InitResourceSave("win10");
+        }
+
+        public bool editing = false;
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ToggleDesignMode();
+        }
+
+        public void TogglePreviewMode()
+        {
             preview = !preview;
             btn_start.Enabled = !preview;
-            txt_password.Enabled = !preview;
+            btn_settings.Enabled = !preview;
             BSODData.HideHidden(preview);
             if (preview)
             {
@@ -458,56 +480,47 @@ namespace BlueScreen_Simulator
             }
         }
 
-        private void rESETToolStripMenuItem2_Click_1(object sender, EventArgs e)
-        {
-            InitResourceSave("win10");
-        }
-
-        public bool editing = false;
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            ToggleDesignMode();
-        }
-
         public void ToggleDesignMode()
         {
             editing = !editing;
             toolStripMenuItem1.Checked = editing;
+            design_helper.Visible = editing;
+            BSODLabel.SetReadOnly(editing);
             if (editing)
             {
                 foreach (var item in BSODData.data.labels)
                 {
-                    ControlMoverOrResizer.Init(item.textBox);
-                    item.textBox.BorderStyle = BorderStyle.FixedSingle;
+                    ControlMoverOrResizer.Init(item.control);
+                    item.control.BorderStyle = BorderStyle.FixedSingle;
                 }
                 foreach (var item in BSODData.data.images)
                 {
-                    ControlMoverOrResizer.Init(item.pb);
-                    item.pb.BorderStyle = BorderStyle.FixedSingle;
+                    ControlMoverOrResizer.Init(item.control);
+                    item.control.BorderStyle = BorderStyle.FixedSingle;
                 }
                 foreach (var item in BSODData.data.panels)
                 {
-                    ControlMoverOrResizer.Init(item.pb);
-                    item.pb.BorderStyle = BorderStyle.FixedSingle;
+                    ControlMoverOrResizer.Init(item.control);
+                    item.control.BorderStyle = BorderStyle.FixedSingle;
                 }
             }
             if (!editing)
             {
                 foreach (var item in BSODData.data.labels)
                 {
-                    ControlMoverOrResizer.Unload(item.textBox);
-                    item.textBox.Cursor = Cursors.IBeam;
-                    item.textBox.BorderStyle = BorderStyle.None;
+                    ControlMoverOrResizer.Unload(item.control);
+                    item.control.Cursor = Cursors.IBeam;
+                    item.control.BorderStyle = BorderStyle.None;
                 }
                 foreach (var item in BSODData.data.images)
                 {
-                    ControlMoverOrResizer.Unload(item.pb);
-                    item.pb.BorderStyle = BorderStyle.None;
+                    ControlMoverOrResizer.Unload(item.control);
+                    item.control.BorderStyle = BorderStyle.None;
                 }
                 foreach (var item in BSODData.data.panels)
                 {
-                    ControlMoverOrResizer.Unload(item.pb);
-                    item.pb.BorderStyle = BorderStyle.None;
+                    ControlMoverOrResizer.Unload(item.control);
+                    item.control.BorderStyle = BorderStyle.None;
                 }
                 this.CreateGraphics().Clear(this.BackColor);
             }
@@ -520,6 +533,8 @@ namespace BlueScreen_Simulator
         Control _sourceControl = null;
         private void contextMenuStrip1_Opened(object sender, EventArgs e)
         {
+            hELPERToolStripMenuItem.Visible = editing;
+            hELPERToolStripMenuItem.Checked = design_helper.Visible;
             _sourceControl = contextMenuStrip1.SourceControl;
             lABELToolStripMenuItem1.Visible = false;
             iMAGEToolStripMenuItem1.Visible = false;
@@ -527,7 +542,7 @@ namespace BlueScreen_Simulator
             pANELToolStripMenuItem.Visible = false;
             foreach (var item in BSODData.data.labels)
             {
-                if (item.textBox == _sourceControl)
+                if (item.control == _sourceControl)
                 {
                     lABELToolStripMenuItem1.Visible = true;
                     iTEMToolStripMenuItem.Visible = true;
@@ -536,7 +551,7 @@ namespace BlueScreen_Simulator
             }
             foreach (var item in BSODData.data.images)
             {
-                if (item.pb == _sourceControl)
+                if (item.control == _sourceControl)
                 {
                     iMAGEToolStripMenuItem1.Visible = true;
                     iTEMToolStripMenuItem.Visible = true;
@@ -545,7 +560,7 @@ namespace BlueScreen_Simulator
             }
             foreach (var item in BSODData.data.panels)
             {
-                if (item.pb == _sourceControl)
+                if (item.control == _sourceControl)
                 {
                     pANELToolStripMenuItem.Visible = true;
                     iTEMToolStripMenuItem.Visible = true;
@@ -583,7 +598,7 @@ namespace BlueScreen_Simulator
         {
             foreach (var item in BSODData.data.labels)
             {
-                if (item.textBox == _sourceControl)
+                if (item.control == _sourceControl)
                 {
                     BSODData.data.labels.Remove(item);
                     break;
@@ -591,7 +606,7 @@ namespace BlueScreen_Simulator
             }
             foreach (var item in BSODData.data.images)
             {
-                if (item.pb == _sourceControl)
+                if (item.control == _sourceControl)
                 {
                     BSODData.data.images.Remove(item);
                     break;
@@ -599,9 +614,10 @@ namespace BlueScreen_Simulator
             }
             foreach (var item in BSODData.data.panels)
             {
-                if (item.pb == _sourceControl)
+                if (item.control == _sourceControl)
                 {
                     BSODData.data.panels.Remove(item);
+                    BSODData.data.allItems.Remove(item);
                     break;
                 }
             }
@@ -652,7 +668,7 @@ namespace BlueScreen_Simulator
 
         internal void updateElements()
         {
-            txt_password.Text = BSODData.data.password;
+
         }
 
         private void mOVETOFRONTToolStripMenuItem_Click(object sender, EventArgs e)
@@ -695,197 +711,290 @@ namespace BlueScreen_Simulator
         private void DesignTimer_Tick(object sender, EventArgs e)
         {
             if (BSODActive()) return;
-            txt_password.BringToFront();
-            lbl_password.BringToFront();
             btn_preview.BringToFront();
             btn_start.BringToFront();
+            btn_settings.BringToFront();
         }
 
         private void hIDEBUTTONSToolStripMenuItem_Click(object sender, EventArgs e)
         {
             hIDEBUTTONSToolStripMenuItem.Checked = !hIDEBUTTONSToolStripMenuItem.Checked;
             btn_start.Visible = !hIDEBUTTONSToolStripMenuItem.Checked;
+            btn_settings.Visible = !hIDEBUTTONSToolStripMenuItem.Checked;
             btn_preview.Visible = !hIDEBUTTONSToolStripMenuItem.Checked;
-            lbl_password.Visible = !hIDEBUTTONSToolStripMenuItem.Checked;
-            txt_password.Visible = !hIDEBUTTONSToolStripMenuItem.Checked;
         }
 
         private void hIDDENToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (var item in BSODData.data.labels)
+            foreach (var item in BSODData.data.allItems)
             {
-                if (item.textBox == _sourceControl)
+                if (item.control == _sourceControl)
                 {
                     item.hidden = !item.hidden;
                     hIDDENToolStripMenuItem.Checked = item.hidden;
                     break;
                 }
             }
-            foreach (var item in BSODData.data.images)
-            {
-                if (item.pb == _sourceControl)
-                {
-                    item.hidden = !item.hidden;
-                    hIDDENToolStripMenuItem.Checked = item.hidden;
-                    break;
-                }
-            }
-            foreach (var item in BSODData.data.panels)
-            {
-                if (item.pb == _sourceControl)
-                {
-                    item.hidden = !item.hidden;
-                    hIDDENToolStripMenuItem.Checked = item.hidden;
-                    break;
-                }
-            }
+        }
+
+        public Control selectedControl;
+        public bool HelperListening = true;
+        private void nbx_posX_ValueChanged(object sender, EventArgs e)
+        {
+            if (!editing || !HelperListening) return;
+            if (selectedControl == null) return;
+            selectedControl.Location = new Point((int)nbx_posX.Value, (int)nbx_posY.Value);
+            selectedControl.Size = new Size((int)nbx_sizeW.Value, (int)nbx_sizeH.Value);
+
+            BSODData.SaveTransformEntry(selectedControl);
+        }
+
+        public void UpdateSelectedControl(object sender, EventArgs e)
+        {
+            HelperListening = false;
+            var control = (Control)sender;
+            selectedControl = control;
+            nbx_posX.Value = control.Location.X;
+            nbx_posY.Value = control.Location.Y;
+
+            nbx_sizeW.Value = control.Size.Width;
+            nbx_sizeH.Value = control.Size.Height;
+            HelperListening = true;
+        }
+
+        public void UpdateSelectedControl()
+        {
+            if (selectedControl==null) return;
+            HelperListening = false;
+            nbx_posX.Value = selectedControl.Location.X;
+            nbx_posY.Value = selectedControl.Location.Y;
+
+            nbx_sizeW.Value = selectedControl.Size.Width;
+            nbx_sizeH.Value = selectedControl.Size.Height;
+            HelperListening = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            BSODData.Undo(selectedControl);
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            BSODData.Redo(selectedControl);
+        }
+
+        private void hELPERToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hELPERToolStripMenuItem.Checked = !hELPERToolStripMenuItem.Checked;
+            design_helper.Visible = hELPERToolStripMenuItem.Checked;
         }
     }
 
     [Serializable]
-    public class BSODPanel
+    public class BSODControl
     {
         [NonSerialized]
-        public Panel pb;
-        Color c;
+        public Control control;
         public Point location;
         public Size size;
         public int zIndex = 0;
         public bool hidden = false;
-        public BSODPanel(Point location, Size size, Color c)
+        [NonSerialized]
+        List<TransformEntry> TransformHistory = new List<TransformEntry>();
+        [NonSerialized]
+        public int TransformHistoryIndex = 0;
+        public BSODControl(Point location,Size size)
         {
-            this.c = c;
             this.location = location;
             this.size = size;
-            BSODData.data.panels.Add(this);
-            CreatePanel();
+            SaveTransformEntry();
         }
-        public void CreatePanel()
+        public void SaveTransformEntry()
         {
-            pb = new Panel();
-            pb.BackColor = c;
-            pb.Location = location;
-            pb.Size = size;
-            BSODData.form.Controls.Add(pb);
-            pb.ContextMenuStrip = BSODData.form.strip;
-            pb.Show();
+            if (TransformHistory == null) TransformHistory = new List<TransformEntry>();
+            var entry = new TransformEntry(control.Location, control.Size);
+            if (TransformHistory.Count >0&& entry != TransformHistory[TransformHistory.Count - 1 - TransformHistoryIndex])
+            {
+                while (TransformHistoryIndex > 0)
+                {
+                    TransformHistory.RemoveAt(0);
+                    TransformHistoryIndex--;
+                }
+                TransformHistory.Add(entry);
+            }
+            if(TransformHistory.Count<=0) TransformHistory.Add(entry);
+
         }
         public void UpdateIndexes()
         {
-            BSODData.form.Controls.SetChildIndex(pb, zIndex);
+            BSODData.form.Controls.SetChildIndex(control, zIndex);
         }
-        public void SyncSettings()
+
+        public void UndoTransform()
         {
-            var scaleFactor = BSODData.form.scalefactor;
-            pb.Scale(new SizeF(1 / scaleFactor.Width, 1 / scaleFactor.Height));
-            c = pb.BackColor;
-            location = pb.Location;
-            size = pb.Size;
-            zIndex = BSODData.form.Controls.GetChildIndex(pb);
-            pb.Scale(scaleFactor);
+            if (TransformHistoryIndex >= TransformHistory.Count - 1) return;
+            TransformHistoryIndex += 1;
+            control.Location = TransformHistory[TransformHistory.Count-1-TransformHistoryIndex].Location;
+            control.Size = TransformHistory[TransformHistory.Count-1 - TransformHistoryIndex].Size;
+            BSODData.form.UpdateSelectedControl();
+        }
+
+        public void RedoTransform()
+        {
+            if (TransformHistoryIndex <= 0) return;
+            TransformHistoryIndex -= 1;
+            control.Location = TransformHistory[TransformHistory.Count-1 - TransformHistoryIndex].Location;
+            control.Size = TransformHistory[TransformHistory.Count -1- TransformHistoryIndex].Size;
+            BSODData.form.UpdateSelectedControl();
+        }
+
+        public virtual void SyncSettings()
+        {
+            
+        }
+
+        public virtual void CreateControl()
+        {
+            control.Scale(BSODData.form.scalefactor);
+            SaveTransformEntry();
         }
     }
 
     [Serializable]
-    public class BSODImage
+    public class BSODPanel : BSODControl
     {
-        [NonSerialized]
-        public PictureBox pb;
+        new public Panel control
+        {
+            get { return (Panel)base.control; }
+            set { base.control = value; }
+        }
+        Color c;
+        public BSODPanel(Point location, Size size, Color c) : base(location, size)
+        {
+            this.c = c;
+            BSODData.data.panels.Add(this);
+            CreateControl();
+        }
+
+        override public void CreateControl()
+        {
+            control = new Panel();
+            control.BackColor = c;
+            control.Location = location;
+            control.Size = size;
+            BSODData.form.Controls.Add(control);
+            control.ContextMenuStrip = BSODData.form.strip;
+            control.Click += BSODData.form.UpdateSelectedControl;
+            control.Show();
+
+            base.CreateControl();
+        }
+        override public void SyncSettings()
+        {
+            var scaleFactor = BSODData.form.scalefactor;
+            control.Scale(new SizeF(1 / scaleFactor.Width, 1 / scaleFactor.Height));
+            c = control.BackColor;
+            location = control.Location;
+            size = control.Size;
+            zIndex = BSODData.form.Controls.GetChildIndex(control);
+            control.Scale(scaleFactor);
+        }
+
+    }
+
+    [Serializable]
+    public class BSODImage : BSODControl
+    {
+        new public PictureBox control
+        {
+            get { return (PictureBox)base.control; }
+            set { base.control = value; }
+        }
         Image image;
-        public Point location;
-        public Size size;
-        public int zIndex = 0;
-        public bool hidden = false;
-        public BSODImage(Point location, Size size, Image img = null)
+        public BSODImage(Point location, Size size, Image img = null) : base(location, size)
         {
             image = img;
-            this.location = location;
-            this.size = size;
             BSODData.data.images.Add(this);
-            CreatePictureBox();
+            CreateControl();
         }
-        public void CreatePictureBox()
+        override public void CreateControl()
         {
-            pb = new PictureBox();
+            control = new PictureBox();
             if (image == null)
             {
                 image = BlueScreen_Simulator.Properties.Resources.QR;
             }
-            pb.ContextMenuStrip = BSODData.form.strip;
-            pb.Image = image;
-            pb.SizeMode = PictureBoxSizeMode.Zoom;
-            pb.Location = location;
-            pb.Size = size;
-            BSODData.form.Controls.Add(pb);
-            pb.Show();
+            control.ContextMenuStrip = BSODData.form.strip;
+            control.Image = image;
+            control.SizeMode = PictureBoxSizeMode.Zoom;
+            control.Location = location;
+            control.Size = size;
+            control.Click += BSODData.form.UpdateSelectedControl;
+            BSODData.form.Controls.Add(control);
+            control.Show();
+
+            base.CreateControl();
         }
-        public void UpdateIndexes()
-        {
-            BSODData.form.Controls.SetChildIndex(pb, zIndex);
-        }
-        public void SyncSettings()
+        override public void SyncSettings()
         {
             var scaleFactor = BSODData.form.scalefactor;
-            pb.Scale(new SizeF(1 / scaleFactor.Width, 1 / scaleFactor.Height));
-            image = pb.Image;
-            location = pb.Location;
-            size = pb.Size;
-            zIndex = BSODData.form.Controls.GetChildIndex(pb);
-            pb.Scale(scaleFactor);
+            control.Scale(new SizeF(1 / scaleFactor.Width, 1 / scaleFactor.Height));
+            image = control.Image;
+            location = control.Location;
+            size = control.Size;
+            zIndex = BSODData.form.Controls.GetChildIndex(control);
+            control.Scale(scaleFactor);
         }
     }
     [Serializable]
-    public class BSODLabel
+    public class BSODLabel : BSODControl
     {
-        [NonSerialized]
-        public RichTextBox textBox;
+        new public RichTextBox control
+        {
+            get { return (RichTextBox)base.control; }
+            set { base.control = value; }
+        }
         public string oldTxt;
-        public Point location;
-        public Size size;
         public String text;
         public Font f = null;
         Color foreColor = Color.WhiteSmoke;
-        public int zIndex = 0;
-        public bool hidden = false;
 
-        public BSODLabel(Point location, Size size, String text, Font f = null)
+        public BSODLabel(Point location, Size size, String text, Font f = null) : base(location, size)
         {
             if (f == null)
             {
                 f = new System.Drawing.Font("Microsoft JhengHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             }
-            this.location = location;
-            this.size = size;
             this.text = text;
             this.f = f;
             BSODData.data.labels.Add(this);
-            CreateTextBox();
+            CreateControl();
         }
 
-        public void CreateTextBox()
+        override public void CreateControl()
         {
-            textBox = new RichTextBox();
-            textBox.BackColor = Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            textBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            textBox.ContextMenuStrip = BSODData.form.strip;
-            textBox.DetectUrls = false;
-            textBox.Font = f;
-            textBox.ForeColor = foreColor;
-            textBox.Location = location;
-            textBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            textBox.Size = size;
-            textBox.TabIndex = 1;
-            textBox.Text = text;
-            BSODData.form.Controls.Add(textBox);
+            control = new RichTextBox();
+            control.BackColor = Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            control.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            control.ContextMenuStrip = BSODData.form.strip;
+            control.DetectUrls = false;
+            control.Font = f;
+            control.ForeColor = foreColor;
+            control.Location = location;
+            control.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            control.Size = size;
+            control.TabIndex = 1;
+            control.Text = text;
+            BSODData.form.Controls.Add(control);
+            control.Click += BSODData.form.UpdateSelectedControl;
+            control.Show();
 
-            textBox.Show();
+            control.Enter += TextBox_Enter;
 
-            textBox.Enter += TextBox_Enter;
+            base.CreateControl();
         }
-        public void UpdateIndexes()
-        {
-            BSODData.form.Controls.SetChildIndex(textBox, zIndex);
-        }
+
         private void TextBox_Enter(object sender, EventArgs e)
         {
             if (BSODData.form.BSODActive())
@@ -894,35 +1003,35 @@ namespace BlueScreen_Simulator
             }
         }
 
-        public void SyncSettings()
+        override public void SyncSettings()
         {
             var scaleFactor = BSODData.form.scalefactor;
-            textBox.Scale(new SizeF(1 / scaleFactor.Width, 1 / scaleFactor.Height));
-            location = textBox.Location;
-            size = textBox.Size;
-            text = textBox.Text;
-            foreColor = textBox.ForeColor;
-            f = textBox.Font;
-            zIndex = BSODData.form.Controls.GetChildIndex(textBox);
-            textBox.Scale(scaleFactor);
+            control.Scale(new SizeF(1 / scaleFactor.Width, 1 / scaleFactor.Height));
+            location = control.Location;
+            size = control.Size;
+            text = control.Text;
+            foreColor = control.ForeColor;
+            f = control.Font;
+            zIndex = BSODData.form.Controls.GetChildIndex(control);
+            control.Scale(scaleFactor);
         }
 
         public void Format()
         {
-            this.textBox.FormatTxt();
-            this.textBox.ReadOnly = true;
+            this.control.FormatTxt();
+            this.control.ReadOnly = true;
         }
 
         public void FormatVar(string var, string val)
         {
-            this.textBox.FormatVar(var, val);
+            this.control.FormatVar(var, val);
         }
 
         public void Undo()
         {
-            this.textBox.Text = this.oldTxt;
-            this.textBox.ReadOnly = false;
-            this.textBox.SelectAll(); this.textBox.SelectionColor = Color.WhiteSmoke;
+            this.control.Text = this.oldTxt;
+            this.control.ReadOnly = false;
+            this.control.SelectAll(); this.control.SelectionColor = Color.WhiteSmoke;
         }
 
         public static void FormatAll()
@@ -957,7 +1066,7 @@ namespace BlueScreen_Simulator
         {
             foreach (var item in BSODData.data.labels)
             {
-                item.textBox.BackColor = c;
+                item.control.BackColor = c;
             }
 
         }
@@ -966,7 +1075,16 @@ namespace BlueScreen_Simulator
         {
             foreach (var item in BSODData.data.labels)
             {
-                item.oldTxt = item.textBox.Text;
+                item.oldTxt = item.control.Text;
+            }
+        }
+
+        internal static void SetReadOnly(bool readOnly)
+        {
+            foreach (var item in BSODData.data.labels)
+            {
+                if (item != null&&item.control!=null)
+                    item.control.ReadOnly = readOnly;
             }
         }
     }
@@ -979,6 +1097,18 @@ namespace BlueScreen_Simulator
             public List<BSODLabel> labels = new List<BSODLabel>();
             public List<BSODImage> images = new List<BSODImage>();
             public List<BSODPanel> panels = new List<BSODPanel>();
+
+            public List<BSODControl> allItems
+            {
+                get
+                {
+                    var all = new List<BSODControl>();
+                    all.AddRange(labels);
+                    all.AddRange(images);
+                    all.AddRange(panels);
+                    return all;
+                }
+            }
 
             public int cmin = 1, cmax = 8, tmin = 1000, tmax = 3500;
             public Color bc = Color.FromArgb(0, 120, 215);
@@ -1023,52 +1153,24 @@ namespace BlueScreen_Simulator
 
         internal static void SyncSettings()
         {
-            foreach (var item in data.images)
+            foreach (var item in data.allItems)
             {
                 item.SyncSettings();
             }
-            foreach (var item in data.labels)
-            {
-                item.SyncSettings();
-            }
-            foreach (var item in data.panels)
-            {
-                item.SyncSettings();
-            }
-            data.password = form.txt_password.Text;
             data.bc = form.BackColor;
         }
 
         public static void CreateAll()
         {
-            foreach (var item in data.labels)
+            foreach (var item in data.allItems)
             {
-                item.CreateTextBox();
-                item.textBox.Scale(BSODData.form.scalefactor);
-            }
-            foreach (var item in data.images)
-            {
-                item.CreatePictureBox();
-                item.pb.Scale(BSODData.form.scalefactor);
-            }
-            foreach (var item in data.panels)
-            {
-                item.CreatePanel();
-                item.pb.Scale(BSODData.form.scalefactor);
+                item.CreateControl();
             }
         }
 
         public static void UpdateZAll()
         {
-            foreach (var item in data.labels)
-            {
-                item.UpdateIndexes();
-            }
-            foreach (var item in data.images)
-            {
-                item.UpdateIndexes();
-            }
-            foreach (var item in data.panels)
+            foreach (var item in data.allItems)
             {
                 item.UpdateIndexes();
             }
@@ -1088,20 +1190,14 @@ namespace BlueScreen_Simulator
         }
         public static void Clean()
         {
-            foreach (var item in data.labels)
+            if (BSODData.form.editing)
             {
-                if (item.textBox != null)
-                    item.textBox.Dispose();
+                BSODData.form.ToggleDesignMode();
             }
-            foreach (var item in data.images)
+            foreach (var item in data.allItems)
             {
-                if (item.pb != null)
-                    item.pb.Dispose();
-            }
-            foreach (var item in data.panels)
-            {
-                if (item.pb != null)
-                    item.pb.Dispose();
+                if (item.control != null)
+                    item.control.Dispose();
             }
         }
         public static void Clear()
@@ -1115,20 +1211,10 @@ namespace BlueScreen_Simulator
 
         internal static void HideHidden(bool hidden)
         {
-            foreach (var item in data.labels)
+            foreach (var item in data.allItems)
             {
                 if (item.hidden)
-                    item.textBox.Visible = !hidden;
-            }
-            foreach (var item in data.images)
-            {
-                if (item.hidden)
-                    item.pb.Visible = !hidden;
-            }
-            foreach (var item in data.panels)
-            {
-                if (item.hidden)
-                    item.pb.Visible = !hidden;
+                    item.control.Visible = !hidden;
             }
         }
 
@@ -1154,6 +1240,45 @@ namespace BlueScreen_Simulator
         {
             Stream s = new MemoryStream(bytes);
             LoadData(s, type);
+        }
+
+        public static void SaveTransformEntry(Control selectedControl)
+        {
+            foreach (var item in data.allItems)
+            {
+                if (item.control == selectedControl)
+                    item.SaveTransformEntry();
+            }
+        }
+
+        internal static void Undo(Control selectedControl)
+        {
+            foreach (var item in data.allItems)
+            {
+                if (item.control == selectedControl)
+                    item.UndoTransform();
+            }
+        }
+
+        internal static void Redo(Control selectedControl)
+        {
+            foreach (var item in data.allItems)
+            {
+                if (item.control == selectedControl)
+                    item.RedoTransform();
+            }
+        }
+    }
+
+    public class TransformEntry
+    {
+        public Size Size;
+        public Point Location;
+
+        public TransformEntry(Point location, Size size)
+        {
+            Location = location;
+            Size = size;
         }
     }
 

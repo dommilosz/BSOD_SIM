@@ -17,13 +17,6 @@ namespace BlueScreen_Simulator
 {
     public partial class Settings : Form
     {
-        string savepatch;
-        //public DialogResult DialogResult = DialogResult.None;
-        public Settings()
-        {
-            InitializeComponent();
-
-        }
         public BSODData.Data data;
         public Settings(BSODData.Data data, string savepath)
         {

@@ -166,6 +166,7 @@ namespace ControlManager
         private static void MoveControl(Control control, MouseEventArgs e)
         {
             if (!_enabled) return;
+            BlueScreen_Simulator.BSODData.form.UpdateSelectedControl();
             DrawFrames(control);
             if (!_resizing && !_moving)
             {
@@ -253,6 +254,7 @@ namespace ControlManager
             _moving = false;
             control.Capture = false;
             UpdateMouseCursor(control);
+            BlueScreen_Simulator.BSODData.SaveTransformEntry(control);
         }
 
         #region Save And Load

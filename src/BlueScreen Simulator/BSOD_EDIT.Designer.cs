@@ -40,6 +40,7 @@
             this.cHANGEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rESETToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.hELPERToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aDDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lABELToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iMAGEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,6 +61,7 @@
             this.mOVETOBACKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rEMOVEToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.hIDDENToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rENAMEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hIDEBUTTONSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sETTINGSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Perc_Timer = new System.Windows.Forms.Timer(this.components);
@@ -74,6 +76,8 @@
             this.DesignTimer = new System.Windows.Forms.Timer(this.components);
             this.btn_settings = new System.Windows.Forms.Button();
             this.design_helper = new System.Windows.Forms.Panel();
+            this.btn_ShowAllControls = new System.Windows.Forms.Button();
+            this.lbl_name = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -86,13 +90,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.nbx_posX = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.hELPERToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AllControls = new System.Windows.Forms.Panel();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.design_helper.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbx_sizeH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbx_sizeW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbx_posY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbx_posX)).BeginInit();
+            this.AllControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -110,7 +119,7 @@
             this.hIDEBUTTONSToolStripMenuItem,
             this.sETTINGSToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 268);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(155, 246);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             this.contextMenuStrip1.Opened += new System.EventHandler(this.contextMenuStrip1_Opened);
             // 
@@ -190,6 +199,14 @@
             this.toolStripMenuItem1.Size = new System.Drawing.Size(154, 22);
             this.toolStripMenuItem1.Text = "DESIGN MODE";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // hELPERToolStripMenuItem
+            // 
+            this.hELPERToolStripMenuItem.Name = "hELPERToolStripMenuItem";
+            this.hELPERToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.hELPERToolStripMenuItem.Text = "HELPER";
+            this.hELPERToolStripMenuItem.Visible = false;
+            this.hELPERToolStripMenuItem.Click += new System.EventHandler(this.hELPERToolStripMenuItem_Click);
             // 
             // aDDToolStripMenuItem
             // 
@@ -315,7 +332,8 @@
             this.mOVETOFRONTToolStripMenuItem,
             this.mOVETOBACKToolStripMenuItem,
             this.rEMOVEToolStripMenuItem2,
-            this.hIDDENToolStripMenuItem});
+            this.hIDDENToolStripMenuItem,
+            this.rENAMEToolStripMenuItem});
             this.iTEMToolStripMenuItem.Name = "iTEMToolStripMenuItem";
             this.iTEMToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.iTEMToolStripMenuItem.Text = "ITEM";
@@ -348,6 +366,13 @@
             this.hIDDENToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.hIDDENToolStripMenuItem.Text = "HIDDEN";
             this.hIDDENToolStripMenuItem.Click += new System.EventHandler(this.hIDDENToolStripMenuItem_Click);
+            // 
+            // rENAMEToolStripMenuItem
+            // 
+            this.rENAMEToolStripMenuItem.Name = "rENAMEToolStripMenuItem";
+            this.rENAMEToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.rENAMEToolStripMenuItem.Text = "RENAME";
+            this.rENAMEToolStripMenuItem.Click += new System.EventHandler(this.rENAMEToolStripMenuItem_Click);
             // 
             // hIDEBUTTONSToolStripMenuItem
             // 
@@ -435,6 +460,9 @@
             // design_helper
             // 
             this.design_helper.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.design_helper.Controls.Add(this.AllControls);
+            this.design_helper.Controls.Add(this.btn_ShowAllControls);
+            this.design_helper.Controls.Add(this.lbl_name);
             this.design_helper.Controls.Add(this.button2);
             this.design_helper.Controls.Add(this.button1);
             this.design_helper.Controls.Add(this.label4);
@@ -449,14 +477,34 @@
             this.design_helper.Controls.Add(this.label1);
             this.design_helper.Location = new System.Drawing.Point(1032, 12);
             this.design_helper.Name = "design_helper";
-            this.design_helper.Size = new System.Drawing.Size(156, 151);
+            this.design_helper.Size = new System.Drawing.Size(156, 205);
             this.design_helper.TabIndex = 25;
             this.design_helper.Visible = false;
+            // 
+            // btn_ShowAllControls
+            // 
+            this.btn_ShowAllControls.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ShowAllControls.Location = new System.Drawing.Point(-4, 176);
+            this.btn_ShowAllControls.Name = "btn_ShowAllControls";
+            this.btn_ShowAllControls.Size = new System.Drawing.Size(172, 29);
+            this.btn_ShowAllControls.TabIndex = 29;
+            this.btn_ShowAllControls.Text = "\\/";
+            this.btn_ShowAllControls.UseVisualStyleBackColor = true;
+            this.btn_ShowAllControls.Click += new System.EventHandler(this.btn_ShowAllControls_Click);
+            // 
+            // lbl_name
+            // 
+            this.lbl_name.AutoSize = true;
+            this.lbl_name.Location = new System.Drawing.Point(3, 9);
+            this.lbl_name.Name = "lbl_name";
+            this.lbl_name.Size = new System.Drawing.Size(61, 13);
+            this.lbl_name.TabIndex = 28;
+            this.lbl_name.Text = "Unselected";
             // 
             // button2
             // 
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(81, 122);
+            this.button2.Location = new System.Drawing.Point(81, 147);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(60, 23);
             this.button2.TabIndex = 27;
@@ -467,7 +515,7 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(15, 122);
+            this.button1.Location = new System.Drawing.Point(15, 147);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(60, 23);
             this.button1.TabIndex = 26;
@@ -478,7 +526,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(52, 98);
+            this.label4.Location = new System.Drawing.Point(52, 123);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(18, 13);
             this.label4.TabIndex = 9;
@@ -486,7 +534,7 @@
             // 
             // nbx_sizeH
             // 
-            this.nbx_sizeH.Location = new System.Drawing.Point(75, 96);
+            this.nbx_sizeH.Location = new System.Drawing.Point(75, 121);
             this.nbx_sizeH.Maximum = new decimal(new int[] {
             0,
             0,
@@ -500,7 +548,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(51, 72);
+            this.label5.Location = new System.Drawing.Point(51, 97);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(21, 13);
             this.label5.TabIndex = 7;
@@ -508,7 +556,7 @@
             // 
             // nbx_sizeW
             // 
-            this.nbx_sizeW.Location = new System.Drawing.Point(74, 70);
+            this.nbx_sizeW.Location = new System.Drawing.Point(74, 95);
             this.nbx_sizeW.Maximum = new decimal(new int[] {
             0,
             0,
@@ -522,7 +570,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 72);
+            this.label6.Location = new System.Drawing.Point(3, 97);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(27, 13);
             this.label6.TabIndex = 5;
@@ -531,7 +579,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(52, 35);
+            this.label3.Location = new System.Drawing.Point(52, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(17, 13);
             this.label3.TabIndex = 4;
@@ -539,7 +587,7 @@
             // 
             // nbx_posY
             // 
-            this.nbx_posY.Location = new System.Drawing.Point(75, 33);
+            this.nbx_posY.Location = new System.Drawing.Point(75, 58);
             this.nbx_posY.Maximum = new decimal(new int[] {
             0,
             0,
@@ -553,7 +601,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 9);
+            this.label2.Location = new System.Drawing.Point(51, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(17, 13);
             this.label2.TabIndex = 2;
@@ -561,7 +609,7 @@
             // 
             // nbx_posX
             // 
-            this.nbx_posX.Location = new System.Drawing.Point(74, 7);
+            this.nbx_posX.Location = new System.Drawing.Point(74, 32);
             this.nbx_posX.Maximum = new decimal(new int[] {
             0,
             0,
@@ -575,19 +623,65 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 9);
+            this.label1.Location = new System.Drawing.Point(3, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Position";
             // 
-            // hELPERToolStripMenuItem
+            // AllControls
             // 
-            this.hELPERToolStripMenuItem.Name = "hELPERToolStripMenuItem";
-            this.hELPERToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.hELPERToolStripMenuItem.Text = "HELPER";
-            this.hELPERToolStripMenuItem.Visible = false;
-            this.hELPERToolStripMenuItem.Click += new System.EventHandler(this.hELPERToolStripMenuItem_Click);
+            this.AllControls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.AllControls.Controls.Add(this.button4);
+            this.AllControls.Controls.Add(this.button3);
+            this.AllControls.Controls.Add(this.listBox1);
+            this.AllControls.Controls.Add(this.label7);
+            this.AllControls.Location = new System.Drawing.Point(0, 200);
+            this.AllControls.Name = "AllControls";
+            this.AllControls.Size = new System.Drawing.Size(156, 272);
+            this.AllControls.TabIndex = 30;
+            // 
+            // listBox1
+            // 
+            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.listBox1.ForeColor = System.Drawing.Color.White;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(3, 29);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(150, 212);
+            this.listBox1.TabIndex = 30;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(45, 13);
+            this.label7.TabIndex = 28;
+            this.label7.Text = "Controls";
+            // 
+            // button3
+            // 
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(4, 246);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(71, 23);
+            this.button3.TabIndex = 30;
+            this.button3.Text = "DELETE";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Location = new System.Drawing.Point(81, 246);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(72, 23);
+            this.button4.TabIndex = 31;
+            this.button4.Text = "RENAME";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // BSOD_EDIT
             // 
@@ -617,6 +711,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nbx_sizeW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbx_posY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbx_posX)).EndInit();
+            this.AllControls.ResumeLayout(false);
+            this.AllControls.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -681,6 +777,14 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem hELPERToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rENAMEToolStripMenuItem;
+        private System.Windows.Forms.Label lbl_name;
+        private System.Windows.Forms.Button btn_ShowAllControls;
+        private System.Windows.Forms.Panel AllControls;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
     }
 }
 

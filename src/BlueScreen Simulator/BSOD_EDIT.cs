@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows.Forms;
@@ -18,6 +20,7 @@ namespace BlueScreen_Simulator
         string savepatch = "not saved";
         public readonly List<string> args = new List<string>();
         bool preview = false;
+        int prevHelperH = 0;
         Size thissize;
         public SizeF scalefactor;
         public ContextMenuStrip strip;
@@ -94,6 +97,8 @@ namespace BlueScreen_Simulator
                 }
                 catch { }
             }
+
+            prevHelperH = design_helper.Height;
         }
 
         private void InitResourceSave(string name)
@@ -104,14 +109,17 @@ namespace BlueScreen_Simulator
         private void addTextBox(Point location, Size size, String text, Font f = null)
         {
             var label = new BSODLabel(location, size, text, f);
+            UpdateControlList();
         }
         private void addImageBox(Point location, Size size)
         {
             var bp = new BSODImage(location, size);
+            UpdateControlList();
         }
         private void addPanel(Point location, Size size, Color c)
         {
             var bp = new BSODPanel(location, size, c);
+            UpdateControlList();
         }
 
         public static RichTextBox createTextBox(Point location, Size size, String text, ContextMenuStrip strip, Font f = null)
@@ -151,23 +159,15 @@ namespace BlueScreen_Simulator
 
                 if (value)
                 {
-                    System.Windows.Forms.Cursor.Show();
+                    Cursor.Show();
                 }
                 else
                 {
-                    System.Windows.Forms.Cursor.Hide();
+                    Cursor.Hide();
                 }
 
                 _CursorShown = value;
             }
-        }
-        public void RunCmd(string command)
-        {
-            Process Process1 = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo("cmd.exe", $"/c {BSODData.data.cmd.Replace("\n", "&")}");
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            Process1.StartInfo = startInfo;
-            try { Process1.Start(); } catch { }
         }
 
         private void ToLog(string log)
@@ -180,7 +180,7 @@ namespace BlueScreen_Simulator
         {
             Random rnd = new Random();
             pr += rnd.Next(BSODData.data.cmin, BSODData.data.cmax);
-            if (pr >= 100) { pr = 100; RunCmd(BSODData.data.cmd); Perc_Timer.Stop(); if (BSODData.data.closeAfterCmd) { password_in.Text = BSODData.data.password; this.Close(); } }
+            if (pr >= 100) { pr = 100; BSODData.RunCmd(); Perc_Timer.Stop(); if (BSODData.data.closeAfterCmd) { password_in.Text = BSODData.data.password; this.Close(); } }
             Perc_Timer.Interval = rnd.Next(BSODData.data.tmin, BSODData.data.tmax);
 
         }
@@ -596,32 +596,8 @@ namespace BlueScreen_Simulator
 
         private void rEMOVEToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            foreach (var item in BSODData.data.labels)
-            {
-                if (item.control == _sourceControl)
-                {
-                    BSODData.data.labels.Remove(item);
-                    break;
-                }
-            }
-            foreach (var item in BSODData.data.images)
-            {
-                if (item.control == _sourceControl)
-                {
-                    BSODData.data.images.Remove(item);
-                    break;
-                }
-            }
-            foreach (var item in BSODData.data.panels)
-            {
-                if (item.control == _sourceControl)
-                {
-                    BSODData.data.panels.Remove(item);
-                    BSODData.data.allItems.Remove(item);
-                    break;
-                }
-            }
-            _sourceControl.Dispose();
+            BSODData.GetControl(_sourceControl).Delete();
+            UpdateControlList();
 
         }
 
@@ -751,26 +727,28 @@ namespace BlueScreen_Simulator
 
         public void UpdateSelectedControl(object sender, EventArgs e)
         {
-            HelperListening = false;
             var control = (Control)sender;
-            selectedControl = control;
-            nbx_posX.Value = control.Location.X;
-            nbx_posY.Value = control.Location.Y;
+            UpdateSelectedControl();
+        }
 
-            nbx_sizeW.Value = control.Size.Width;
-            nbx_sizeH.Value = control.Size.Height;
-            HelperListening = true;
+        public void UpdateSelectedControl(Control control)
+        {
+            selectedControl = control;
+            UpdateSelectedControl();
         }
 
         public void UpdateSelectedControl()
         {
-            if (selectedControl==null) return;
+            if (selectedControl == null) return;
             HelperListening = false;
             nbx_posX.Value = selectedControl.Location.X;
             nbx_posY.Value = selectedControl.Location.Y;
 
             nbx_sizeW.Value = selectedControl.Size.Width;
             nbx_sizeH.Value = selectedControl.Size.Height;
+
+            if (BSODData.GetControl(selectedControl) != null)
+                lbl_name.Text = BSODData.GetControl(selectedControl).name;
             HelperListening = true;
         }
 
@@ -789,33 +767,91 @@ namespace BlueScreen_Simulator
             hELPERToolStripMenuItem.Checked = !hELPERToolStripMenuItem.Checked;
             design_helper.Visible = hELPERToolStripMenuItem.Checked;
         }
+
+        private void rENAMEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BSODData.GetControl(_sourceControl).Rename();
+            UpdateControlList();
+        }
+
+        private void btn_ShowAllControls_Click(object sender, EventArgs e)
+        {
+            if (design_helper.Size.Height > prevHelperH)
+            {
+                design_helper.Size = new Size(design_helper.Width, prevHelperH);
+            }
+            else
+            {
+                design_helper.Size = new Size(design_helper.Width, prevHelperH + AllControls.Height);
+            }
+            UpdateControlList();
+        }
+
+        public void UpdateControlList()
+        {
+            listBox1.Items.Clear();
+            foreach (var item in BSODData.data.allItems)
+            {
+                listBox1.Items.Add(item.name);
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+                UpdateSelectedControl(BSODData.GetControlByName(listBox1.SelectedItem.ToString()).control);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                BSODData.GetControlByName(listBox1.SelectedItem.ToString()).Delete();
+            }
+            UpdateControlList();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                BSODData.GetControlByName(listBox1.SelectedItem.ToString()).Rename();
+            }
+            UpdateControlList();
+        }
     }
 
     [Serializable]
     public class BSODControl
     {
+        public virtual string TypeName { get { throw new NotImplementedException(); } }
         [NonSerialized]
         public Control control;
+
         public Point location;
         public Size size;
         public int zIndex = 0;
         public bool hidden = false;
+        public string name;
+
         [NonSerialized]
         List<TransformEntry> TransformHistory = new List<TransformEntry>();
         [NonSerialized]
         public int TransformHistoryIndex = 0;
-        public BSODControl(Point location,Size size)
+        public BSODControl(Point location, Size size)
         {
             this.location = location;
             this.size = size;
-            SaveTransformEntry();
+            //SaveTransformEntry();
         }
         public void SaveTransformEntry()
         {
             if (TransformHistory == null) TransformHistory = new List<TransformEntry>();
             var entry = new TransformEntry(control.Location, control.Size);
-            if (TransformHistory.Count >0&& entry != TransformHistory[TransformHistory.Count - 1 - TransformHistoryIndex])
+            if (TransformHistory.Count > 0)
             {
+                var prevEntry = TransformHistory[TransformHistory.Count - 1 - TransformHistoryIndex];
+                if (prevEntry.Location == entry.Location && prevEntry.Size == entry.Size) return;
                 while (TransformHistoryIndex > 0)
                 {
                     TransformHistory.RemoveAt(0);
@@ -823,7 +859,7 @@ namespace BlueScreen_Simulator
                 }
                 TransformHistory.Add(entry);
             }
-            if(TransformHistory.Count<=0) TransformHistory.Add(entry);
+            if (TransformHistory.Count <= 0) TransformHistory.Add(entry);
 
         }
         public void UpdateIndexes()
@@ -835,8 +871,8 @@ namespace BlueScreen_Simulator
         {
             if (TransformHistoryIndex >= TransformHistory.Count - 1) return;
             TransformHistoryIndex += 1;
-            control.Location = TransformHistory[TransformHistory.Count-1-TransformHistoryIndex].Location;
-            control.Size = TransformHistory[TransformHistory.Count-1 - TransformHistoryIndex].Size;
+            control.Location = TransformHistory[TransformHistory.Count - 1 - TransformHistoryIndex].Location;
+            control.Size = TransformHistory[TransformHistory.Count - 1 - TransformHistoryIndex].Size;
             BSODData.form.UpdateSelectedControl();
         }
 
@@ -844,26 +880,72 @@ namespace BlueScreen_Simulator
         {
             if (TransformHistoryIndex <= 0) return;
             TransformHistoryIndex -= 1;
-            control.Location = TransformHistory[TransformHistory.Count-1 - TransformHistoryIndex].Location;
-            control.Size = TransformHistory[TransformHistory.Count -1- TransformHistoryIndex].Size;
+            control.Location = TransformHistory[TransformHistory.Count - 1 - TransformHistoryIndex].Location;
+            control.Size = TransformHistory[TransformHistory.Count - 1 - TransformHistoryIndex].Size;
             BSODData.form.UpdateSelectedControl();
         }
 
         public virtual void SyncSettings()
         {
-            
+
         }
 
         public virtual void CreateControl()
         {
             control.Scale(BSODData.form.scalefactor);
             SaveTransformEntry();
+
+            if (name == null)
+            {
+                for (int i = 0; i < BSODData.data.allItems.Count; i++)
+                {
+                    if (BSODData.GetControlByName($"{TypeName} {i}") == null)
+                    {
+                        name = $"{TypeName} {i}";
+                    }
+                }
+            }
+        }
+
+        public void Delete()
+        {
+            foreach (var item in BSODData.data.labels)
+            {
+                if (item == this)
+                {
+                    BSODData.data.labels.Remove(item);
+                    break;
+                }
+            }
+            foreach (var item in BSODData.data.images)
+            {
+                if (item == this)
+                {
+                    BSODData.data.images.Remove(item);
+                    break;
+                }
+            }
+            foreach (var item in BSODData.data.panels)
+            {
+                if (item == this)
+                {
+                    BSODData.data.panels.Remove(item);
+                    break;
+                }
+            }
+            this.control.Dispose();
+        }
+
+        public void Rename()
+        {
+            (new RenameDialog(this)).ShowDialog();
         }
     }
 
     [Serializable]
     public class BSODPanel : BSODControl
     {
+        public override string TypeName { get { return "Panel"; } }
         new public Panel control
         {
             get { return (Panel)base.control; }
@@ -906,6 +988,7 @@ namespace BlueScreen_Simulator
     [Serializable]
     public class BSODImage : BSODControl
     {
+        public override string TypeName { get { return "Image"; } }
         new public PictureBox control
         {
             get { return (PictureBox)base.control; }
@@ -950,6 +1033,7 @@ namespace BlueScreen_Simulator
     [Serializable]
     public class BSODLabel : BSODControl
     {
+        public override string TypeName { get { return "Label"; } }
         new public RichTextBox control
         {
             get { return (RichTextBox)base.control; }
@@ -964,7 +1048,7 @@ namespace BlueScreen_Simulator
         {
             if (f == null)
             {
-                f = new System.Drawing.Font("Microsoft JhengHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+                f = new Font("Microsoft JhengHei UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             }
             this.text = text;
             this.f = f;
@@ -1083,7 +1167,7 @@ namespace BlueScreen_Simulator
         {
             foreach (var item in BSODData.data.labels)
             {
-                if (item != null&&item.control!=null)
+                if (item != null && item.control != null)
                     item.control.ReadOnly = readOnly;
             }
         }
@@ -1114,6 +1198,9 @@ namespace BlueScreen_Simulator
             public Color bc = Color.FromArgb(0, 120, 215);
             public string password = "1234", cmd = "";
             public bool unsafeMode = true, closeAfterCmd, hideCursor = true, AutoStart = true;
+
+            public bool batchMode = false;
+            public List<BatchResource> resources = new List<BatchResource>();
         }
         public static Data data = new Data();
 
@@ -1146,6 +1233,10 @@ namespace BlueScreen_Simulator
             if (BSODData.data.labels == null)
             {
                 BSODData.data.labels = new List<BSODLabel>();
+            }
+            if (BSODData.data.resources == null)
+            {
+                BSODData.data.resources = new List<BatchResource>();
             }
             Apply();
             s.Close();
@@ -1268,6 +1359,106 @@ namespace BlueScreen_Simulator
                     item.RedoTransform();
             }
         }
+
+        public static BSODControl GetControl(Control sender)
+        {
+            foreach (var item in data.allItems)
+            {
+                if (item.control == sender)
+                    return item;
+            }
+            return null;
+        }
+
+        public static BSODControl GetControlByName(string name)
+        {
+            foreach (var item in data.allItems)
+            {
+                if (item.name == name)
+                    return item;
+            }
+            return null;
+        }
+       
+        public static void AddResource(string name,byte[] bytes)
+        {
+            if (GetResource(name) == null)
+            {
+                data.resources.Add(new BatchResource(name, bytes));
+            }
+        }
+
+        public static void AddResource(string name, byte[] bytes,BatchResource _override)
+        {
+            _override.data = bytes;
+            _override.name = name;
+        }
+
+        public static BatchResource GetResource(string name)
+        {
+            foreach (var item in data.resources)
+            {
+                if (item.name == name)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public static void DeleteResource(string name)
+        {
+            foreach (var item in data.resources)
+            {
+                if (item.name == name)
+                {
+                    data.resources.Remove(item);
+                    break;
+                }
+            }
+        }
+
+        public static void RunCmd()
+        {
+            if (!data.batchMode)
+            {
+                Process Process1 = new Process();
+                ProcessStartInfo startInfo = new ProcessStartInfo("cmd.exe", $"/c {data.cmd.Replace("\n"," && ")}");
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                Process1.StartInfo = startInfo;
+                try { Process1.Start(); } catch { }
+            }
+            else
+            {
+                var dir = Utils.GetTemporaryDirectory();
+                foreach (var item in data.resources)
+                {
+                    File.WriteAllBytes(dir + "/" + item.name, item.data);
+                }
+                File.WriteAllText(dir + "/" + "main_command.bat", data.cmd);
+
+                Process Process1 = new Process();
+                ProcessStartInfo startInfo = new ProcessStartInfo("cmd.exe", $"/c {dir + "/" + "main_command.bat"}");
+                startInfo.WorkingDirectory = dir;
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                Process1.StartInfo = startInfo;
+                try { Process1.Start(); } catch { }
+            }
+            
+        }
+    }
+
+    [Serializable]
+    public class BatchResource
+    {
+        public byte[] data;
+        public string name;
+
+        public BatchResource(string name,byte[] data)
+        {
+            this.data = data;
+            this.name = name;
+        }
     }
 
     public class TransformEntry
@@ -1371,6 +1562,13 @@ namespace BlueScreen_Simulator
                 i++;
             }
             return i;
+        }
+
+        public static string GetTemporaryDirectory()
+        {
+            string tempDirectory = Path.Combine(Path.GetTempPath(),"BSOD_SIM", Path.GetRandomFileName());
+            Directory.CreateDirectory(tempDirectory);
+            return tempDirectory;
         }
     }
 

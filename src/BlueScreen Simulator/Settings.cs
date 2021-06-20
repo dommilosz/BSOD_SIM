@@ -32,15 +32,16 @@ namespace BlueScreen_Simulator
             chk_hide_cursor.Checked = data.hideCursor;
             txt_password.Text = data.password;
             chk_AutoStart.Checked = data.AutoStart;
+            chk_batchMode.Checked = data.batchMode;
+
+            p_batchModeOff.Visible = !data.batchMode;
+            UpdateListBox();
         }
 
         private void Button6_Click(object sender, EventArgs e)
         {
-            Process Process1 = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo("cmd.exe", $"/c {textBox1.Text.Replace("\n", "&")}");
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            Process1.StartInfo = startInfo;
-            try { Process1.Start(); } catch { }
+            data.cmd = textBox1.Text;
+            BSODData.RunCmd();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -61,6 +62,82 @@ namespace BlueScreen_Simulator
         private void button4_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var bytes = File.ReadAllBytes(openFileDialog1.FileName);
+                BSODData.AddResource(openFileDialog1.FileName.Split('\\')[openFileDialog1.FileName.Split('\\').Length - 1], bytes);
+            }
+            UpdateListBox();
+        }
+
+        private void UpdateListBox()
+        {
+            listBox1.Items.Clear();
+            foreach (var item in data.resources)
+            {
+                listBox1.Items.Add(item.name);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex >=0)
+            {
+                BSODData.DeleteResource(listBox1.SelectedItem.ToString());
+            }
+            UpdateListBox();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            data.batchMode = true;
+            p_batchModeOff.Visible = false;
+            chk_batchMode.Checked = data.batchMode;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            data.batchMode = chk_batchMode.Checked;
+            p_batchModeOff.Visible = !data.batchMode;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex >= 0)
+            {
+                new RenameDialog(BSODData.GetResource(listBox1.SelectedItem.ToString())).ShowDialog();
+            }
+            UpdateListBox();
+           
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex >= 0)
+            {
+                var res = BSODData.GetResource(listBox1.SelectedItem.ToString());
+
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    var bytes = File.ReadAllBytes(openFileDialog1.FileName);
+                    BSODData.AddResource(openFileDialog1.FileName.Split('\\')[openFileDialog1.FileName.Split('\\').Length - 1], bytes, res);
+                }
+            }
+            UpdateListBox();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lbl_resInfo.Text = "Resource: ";
+            if (listBox1.SelectedIndex >= 0)
+            {
+                var res = BSODData.GetResource(listBox1.SelectedItem.ToString());
+                lbl_resInfo.Text += res.data.Length + "B";
+            }
         }
     }
 }
